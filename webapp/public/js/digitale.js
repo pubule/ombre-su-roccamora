@@ -963,10 +963,16 @@ const pips = (n, max, cls) => `<span class="pips ${cls}">${Array.from({ length: 
 // dice solo l'insieme: `attacco.candidati` (piu' d'uno = «uno di voi»; uno
 // solo = quel nome). `tira2d6` non lo chiama nessuno con `differito=true`.
 const CASO_ANTEPRIMA = { scegli: () => 0, tira2d6: () => ({ d: [3, 4], tot: 7 }) };
+// L'ANTEPRIMA DELLA NOTTE costa: simula tutti i nemici col pathfinding (un terzo del ridisegno, su un
+// telefono lento). Cambia solo se cambiano posizioni, vite o round: si tiene finche' la «firma» e' uguale.
 function intenzioni() {
-  const g = G(); const copia = { ...g, sp: structuredClone(g.sp), partita: structuredClone(g.partita) };
-  const piano = nemici.pianoNemici(copia, CASO_ANTEPRIMA, true);
-  return Object.fromEntries(piano.map((p) => [p.i, p]));   // p.pos1 = dove arriva, p.attacco = chi colpisce (o null)
+  const g = G(); const sp = g.sp;
+  const firma = JSON.stringify([sp.round, sp.eroiPos, sp.vite, sp.nemici, sp.scortati, sp.rivelate, sp.grate, sp.esca, sp.fase]);
+  if (ctx.intenzioniCache && ctx.intenzioniCache.firma === firma) return ctx.intenzioniCache.piano;
+  const copia = { ...g, sp: structuredClone(g.sp), partita: structuredClone(g.partita) };
+  const piano = Object.fromEntries(nemici.pianoNemici(copia, CASO_ANTEPRIMA, true).map((p) => [p.i, p]));   // p.pos1 = dove arriva, p.attacco = chi colpisce (o null)
+  ctx.intenzioniCache = { firma, piano };
+  return piano;
 }
 // l'eroe vivo piu' vicino a una posizione: per dire «si avvicina a chi» quando
 // il nemico si muove senza trovare nessuno adiacente (pianoNemici non porta il
@@ -1820,10 +1826,13 @@ function agganciaMappa() {
       return stanzaHtml(ctx.ep, tileDi(id), { cell, rivelata: (v) => rev.includes(v) }).luci
         .map((l, i) => ({ id: `${id}-${i}`, x: ox + l.x * cell, y: oy + l.y * cell, tipo: l.tipo }));
     });
+    const lanterne = [...bd.querySelectorAll('.tok-slot[data-tok^="E:"]')];   // le pedine degli eroi di questo disegno
     const sorgentiLuce = () => [
       ...fisse,
-      ...[...bd.querySelectorAll('.tok-slot[data-tok^="E:"]')].map((s) => ({ id: s.dataset.tok,
-        x: s.offsetLeft + ctx._geo.cell / 2, y: s.offsetTop + ctx._geo.cell / 2, tipo: 'lanterna' })),
+      // la posizione dallo stile in linea, non da offsetLeft: leggere offsetLeft a ogni fotogramma
+      // costringeva il browser a ricalcolare l'impaginazione della plancia ogni volta
+      ...lanterne.map((s) => ({ id: s.dataset.tok,
+        x: parseFloat(s.style.left) + ctx._geo.cell / 2, y: parseFloat(s.style.top) + ctx._geo.cell / 2, tipo: 'lanterna' })),
     ];
     luce.imposta(sorgentiLuce, { canto: sp.canto });
     luce.avvia();
@@ -1835,7 +1844,7 @@ function agganciaMappa() {
       if (!bd.isConnected) { clearInterval(ctx.buioNemici); return; }
       const fonti = sorgentiLuce(); const c = ctx._geo.cell; const canto = SP().canto || 0;
       bd.querySelectorAll('.tok-slot[data-tok^="N:"]').forEach((s) => {
-        const x = s.offsetLeft + c / 2; const y = s.offsetTop + c / 2;
+        const x = parseFloat(s.style.left) + c / 2; const y = parseFloat(s.style.top) + c / 2;
         const visto = fonti.some((f) => Math.hypot(f.x - x, f.y - y) < raggioLuce(f.tipo, c, canto) * 0.75);
         s.querySelector('.tok-board')?.classList.toggle('nel-buio', !visto);
       });

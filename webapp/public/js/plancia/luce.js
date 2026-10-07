@@ -15,7 +15,7 @@ export function creaLuce(el, { cell = 104 } = {}) {
   const calore = document.createElement('canvas'); calore.className = 'calore';
   el.append(calore, buio);
   const gB = buio.getContext('2d'), gC = calore.getContext('2d');
-  let sorgenti = () => [], canto = 0, raf = 0, t0 = 0;
+  let sorgenti = () => [], canto = 0, raf = 0, t0 = 0, ultimo = 0;
   let regioni = null;                                // null = tutto il canvas (comportamento di sempre)
   const pos = {};                                   // id -> {x,y}: la luce insegue la sorgente
   // terzo argomento opzionale (Step 4b, mockup 6-scenografia.html:265): un
@@ -32,13 +32,21 @@ export function creaLuce(el, { cell = 104 } = {}) {
     // alla stessa velocita' reale invece di scattare o strisciare
     const dt = Math.min(50, now - t0) / 1000; t0 = now;
     const k = Math.min(1, dt * 7);
+    // FERMO, IL BUIO NON SI RIDIPINGE A OGNI FOTOGRAMMA. Ridisegnare i due canvas e ricaricarli sulla
+    // scheda video 60 volte al secondo era quel che faceva scattare le animazioni (misurato: 44 fps
+    // contro 59 a buio spento, CPU rallentata 4 volte). Se nessuna luce si sta spostando basta un
+    // fotogramma ogni 100 ms per il tremolio; quando una lanterna cammina si torna a pieno ritmo.
+    const elenco = sorgenti();
+    const muove = elenco.some((s) => { const p = pos[s.id]; return !p || Math.abs(s.x - p.x) > .5 || Math.abs(s.y - p.y) > .5; });
+    if (!muove && now - ultimo < 100) { raf = el.isConnected ? requestAnimationFrame(fotogramma) : 0; return; }
+    ultimo = now;
     const w = buio.width, h = buio.height;
     gB.globalCompositeOperation = 'source-over'; gB.fillStyle = 'rgba(2,3,4,.95)';
     if (regioni) { for (const r of regioni) gB.fillRect(r.x / Q, r.y / Q, r.w / Q, r.h / Q); }
     else gB.fillRect(0, 0, w, h);
     gB.globalCompositeOperation = 'destination-out';
     gC.globalCompositeOperation = 'source-over'; gC.clearRect(0, 0, w, h); gC.globalCompositeOperation = 'lighter';
-    for (const s of sorgenti()) {
+    for (const s of elenco) {
       const p = pos[s.id] || (pos[s.id] = { x: s.x, y: s.y });
       p.x += (s.x - p.x) * k; p.y += (s.y - p.y) * k;
       const fl = 1 + Math.sin(now / 90 + s.id.length * 7) * .025 + Math.sin(now / 37 + s.x) * .02;
