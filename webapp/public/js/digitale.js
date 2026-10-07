@@ -833,6 +833,8 @@ function boardHtml(senzaMosse) {
   const emittenti = rev.map((id) => tileDi(id)).map((t) => ({ t, f: fuoriDichiarato(t) }))
     .filter((x) => x.f).sort((a, b) => (ordineEp.get(a.t.id) ?? 0) - (ordineEp.get(b.t.id) ?? 0));
   let fuoriHtml = '';
+  // il fuori che fa da fondo anche oltre la plancia (vedi fondoFuori): quello della prima stanza svelata
+  ctx._geo.fuoriFondo = (emittenti.find((e) => e.f !== 'tetti') || {}).f || null;
   if (emittenti.length) {
     for (let X = minX; X <= maxX; X++) for (let Y = minY; Y <= maxY; Y++) {
       if (occupato.has(`${X},${Y}`)) continue;
@@ -1697,12 +1699,25 @@ function fitZoom() {
 // idempotente — ricostruisce il piano, rimuove le pedine e riapplica i danni.
 // Prima di questo, toccare +/− mentre la notte si muoveva faceva giocare ai
 // nemici un secondo turno. Qui si scrive solo lo stile, e il pan resta dov'era.
+// IL FUORI OLTRE LA PLANCIA. La plancia ha una tessera di margine, ma quando la finestra ha
+// proporzioni diverse dalle stanze restavano strisce nere sopra, sotto o di lato. Il contenitore
+// prende lo stesso fuori (l'acqua del Preludio, l'erba, il selciato), scurito come quello del margine
+// e alla stessa scala, scuro quanto il buio che copre la plancia: niente vuoti. Coi tetti (la citta' sotto) e senza un fuori resta il nero.
+function fondoFuori(wrap, z) {
+  const f = ctx._geo && ctx._geo.fuoriFondo;
+  if (!wrap) return;
+  if (!f) { wrap.style.background = ''; return; }
+  const lato = Math.round(4 * ctx._geo.cell * (z || 1));
+  wrap.style.background = `linear-gradient(rgba(6,7,9,.9), rgba(6,7,9,.9)), url('${V('pavimenti/' + f)}') 0 0 / ${lato}px ${lato}px repeat, #0a0a0c`;
+}
+
 function applicaZoom(z) {
   const sp = SP(); const app = ctx.app;
   const wrap = app.querySelector('#board-wrap'); const board = app.querySelector('.board-digitale');
   const r = z / (sp.zoom || 1);
   sp.zoom = z; salvaP();
   if (board) board.style.zoom = z;
+  fondoFuori(wrap, z);
   // lo scroll si riscala attorno al centro visibile: lo zoom a bottoni resta
   // ancorato a quello che si sta guardando, non al vertice alto-sinistra
   if (wrap && isFinite(r) && r > 0) {
@@ -1765,6 +1780,7 @@ function agganciaMappa() {
   const { app } = ctx; const sp = SP(); const wrap = app.querySelector('#board-wrap'); if (!wrap) return;
   // primo ingresso senza uno zoom salvato: si parte adattati, non a 1
   if (sp.zoom == null) applicaZoom(fitZoom());
+  else fondoFuori(wrap, sp.zoom);
   // LA LUCE VIVE CON LA PLANCIA (Step 4, Task 4): un solo oggetto per partita,
   // ridimensionato a ogni disegno. `.board-digitale` e' un nodo NUOVO quasi a
   // ogni render (app.innerHTML cambia a ogni mossa): si tiene lo stesso

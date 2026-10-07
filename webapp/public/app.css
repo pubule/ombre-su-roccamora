@@ -1012,6 +1012,9 @@ canvas.citta { position: absolute; left: 0; top: 0; pointer-events: none; }
 
 /* IL BUIO DELLA PLANCIA (Task 4): due canvas a un quarto della risoluzione,
    allargati dal CSS. Sopra il terreno, sotto i token. */
+/* IN ALTO A SINISTRA DELLA PLANCIA, sopra le stanze: senza position:absolute i due canvas stavano nel
+   flusso, uno sotto l'altro, e il buio finiva SOTTO la plancia come una striscia nera. */
+canvas.buio, canvas.calore { position: absolute; left: 0; top: 0; }
 canvas.buio { z-index: 4; pointer-events: none; }
 canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 
