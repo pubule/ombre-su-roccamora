@@ -1125,7 +1125,7 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 /* la plancia riempie la sua cella di griglia (non piu' 68vh fissi): la
    colonna centrale gia' e' alta quanto le altre due, `board-wrap` deve solo
    seguirla */
-#app.immersivo:has(#col-eroi) #board-wrap { height: 100%; max-height: none; }
+#app.immersivo:has(#col-eroi) #board-wrap { flex: 1 1 0; height: auto; min-height: 0; max-height: none; }   /* sotto il duello */
 
 /* il capo: sostituisce la `.barra` «tutto a schermo» */
 .capo { display: flex; align-items: center; gap: 14px; padding: 8px 12px; min-width: 0; }
@@ -1416,9 +1416,6 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   font-family: 'FellSC', serif; font-size: 22px; font-weight: 700; color: #ff5a5a; text-shadow: 0 0 5px #000, 0 1px 2px #000;
   opacity: 0; transition: opacity .3s ease, transform .9s ease; }
 .dmg-pop.on { opacity: 1; transform: translate(-50%, -140%); }
-.turno-banner.nemico { border-color: var(--ceralacca); background: linear-gradient(180deg, rgba(40,12,16,.97), rgba(20,10,12,.97)); }
-.turno-banner.nemico .rit { border-color: #d83b3b; box-shadow: 0 0 16px rgba(216,59,59,.7); }
-.turno-banner.nemico .tb-txt b { color: #ff8a6a; }
 .tb-roll { display: inline-block; font-family: 'OldStd', serif; font-size: 12px; color: var(--osso);
   background: rgba(0,0,0,.35); border: 1px solid rgba(216,178,94,.4); border-radius: 2px; padding: 0 5px; margin: 0 3px; }
 .diario { max-height: 140px; overflow-y: auto; }
@@ -1436,21 +1433,6 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   border: 1px solid var(--bordo-alto); background: rgba(20,14,24,.95);
   box-shadow: 0 4px 14px rgba(0,0,0,.4); }
 .spia-rete.scaduta { background: var(--ceralacca); cursor: pointer; }
-/* transizione passaggio turno: banner col ritratto dell'eroe che entra */
-.turno-banner { position: fixed; left: 50%; top: 22%; transform: translate(-50%, -12px) scale(.92);
-  display: flex; align-items: center; gap: 14px; z-index: 250; pointer-events: none;
-  background: linear-gradient(180deg, rgba(29,16,20,.96), rgba(14,21,25,.96));
-  border: 2px solid var(--bordo-alto); border-radius: 2px; padding: 12px 22px 12px 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.6); opacity: 0; transition: opacity .35s ease, transform .35s cubic-bezier(.2,.9,.3,1.2); }
-.turno-banner.on { opacity: 1; transform: translate(-50%, 0) scale(1); }
-/* il banner senza variante e' quello dell'EROE che entra: oro acceso, come il
-   suo token e la sua chip. Il rosso resta al nemico (`.turno-banner.nemico`) */
-.turno-banner .rit { width: 64px; height: 64px; border-radius: 50%; overflow: hidden;
-  border: 3px solid #f4d68a; background: #0f0c10; box-shadow: 0 0 16px rgba(244,214,138,.7); flex: 0 0 auto; }
-.turno-banner .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.turno-banner .tb-txt { font-family: 'FellSC', serif; color: var(--osso-fioco); font-size: 15px; line-height: 1.15; }
-.turno-banner .tb-txt b { font-size: 24px; color: var(--osso); text-transform: lowercase; }
-
 /* account: spia di sincronizzazione, cambio tavolo, nome del tavolo.
    Qui c'era un secondo `.campo` (fondo scuro, `color: inherit`) che scavalcava
    quello vero: dentro un pannello `inherit` era l'inchiostro scuro, e nel
@@ -1811,4 +1793,53 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   /* sul telefono l'elenco e' un ripiego: si apre se la mappa non basta */
   .str-piega { display: flex; width: 100%; justify-content: center; margin-top: 10px; }
   .str-fianco.chiuso { display: none; }
+}
+
+/* IL DUELLO (mockups/attacco-nemici, variante A): una striscia fissa in cima alla plancia, al posto del
+   banner volante. Altezza fissa, cosi' la plancia sotto non salta quando cambia il testo, e i tasti dello
+   zoom scendono di quanto serve. Sopra la vignetta della plancia (z-index 15). */
+.board-area { --duello-h: 70px; }
+.duello { position: relative; z-index: 16; flex: none; height: var(--duello-h); margin-bottom: 4px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 10px; padding: 6px 12px;
+  background: rgba(14,16,20,.94); border: 1px solid var(--bordo); border-radius: 2px; }
+.duello.notturno { background: linear-gradient(90deg, rgba(40,12,16,.97), rgba(18,14,16,.97) 50%, rgba(28,22,14,.97)); border-color: #5a1f26; }
+.duello.entra { animation: duello-entra .5s ease; }
+@keyframes duello-entra { from { background-color: rgba(232,194,122,.18); } }
+.duello .chi { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.duello .chi.destra { flex-direction: row-reverse; text-align: right; }
+.duello .centro-d { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 96px; text-align: center; }
+.rit-d { flex: none; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; background: #0f0c10; position: relative; }
+.rit-d img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.rit-d.cattivo { border: 2px solid #d83b3b; box-shadow: 0 0 14px rgba(216,59,59,.55); }
+.rit-d.eroe { border: 2px solid #f4d68a; box-shadow: 0 0 12px rgba(244,214,138,.45); }
+.rit-d.colpito { animation: tok-colpito .55s ease; }
+.rit-d.colpito::after { content: ''; position: absolute; inset: 0; background: rgba(216,59,59,.5); animation: duello-svanisci 1s forwards; }
+@keyframes duello-svanisci { to { opacity: 0; } }
+.nome-d { font-family: 'FellSC', serif; font-size: 17px; line-height: 1.1; color: var(--osso); text-transform: lowercase;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nome-d.cattivo { color: #ff8a6a; }
+.nome-d small { display: block; font-size: 11px; letter-spacing: .1em; color: var(--osso-fioco); }
+.pips-d { display: flex; gap: 3px; margin-top: 3px; justify-content: flex-end; }
+.pips-d i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--bordo-alto); }
+.pips-d i.pieno { background: var(--ceralacca); border-color: var(--ceralacca); }
+.pips-d i.perde { animation: duello-perde 1s forwards; }
+@keyframes duello-perde { 0% { background: #ff5a4a; transform: scale(1.7); } 100% { background: none; transform: scale(1); } }
+.dv { font-family: 'FellSC', serif; font-size: 14px; color: var(--osso-fioco); white-space: nowrap; }
+.freccia-d { color: #d83b3b; font-size: 18px; line-height: 1; }
+.danno-d { font-family: 'FellSC', serif; font-size: 19px; color: #ff5a4a; text-shadow: 0 0 10px rgba(255,60,40,.6); white-space: nowrap; }
+.manca-d { font-family: 'FellSC', serif; font-size: 16px; color: var(--osso-fioco); font-style: italic; }
+/* la plancia prende quel che resta sotto la striscia */
+.immersivo .board-area, #app.immersivo:has(#col-eroi) .centro.board-area { display: flex; flex-direction: column; gap: 0; }
+.immersivo .board-area .board-wrap { flex: 1 1 0; height: auto; min-height: 0; }
+.board-area .zoom-ctrl { top: calc(var(--duello-h) + 12px); }
+@media (max-width: 600px) {
+  .board-area { --duello-h: 58px; }
+  .duello { gap: 6px; padding: 4px 8px; }
+  .rit-d { width: 42px; height: 42px; }
+  .nome-d { font-size: 14px; }
+  .nome-d small { font-size: 9px; }
+  .pips-d i { width: 7px; height: 7px; }
+  .duello .centro-d { min-width: 76px; }
+  .dv, .manca-d { font-size: 12px; } .danno-d { font-size: 15px; }
+  .duello .tb-roll { font-size: 10px; margin: 0; }
 }

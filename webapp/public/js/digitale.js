@@ -563,6 +563,7 @@ function render() {
     ${capoHtml()}
     <div class="col eroi" id="col-eroi">${colEroiHtml()}</div>
     <div class="centro board-area">
+      <div class="duello" id="duello">${duelloEroiHtml()}</div>
       <div class="board-wrap" id="board-wrap">${boardHtml()}</div>
       <div class="zoom-ctrl">
         <button class="zoom-btn" data-zoom="-">−</button>
@@ -1624,24 +1625,48 @@ function aggancia() {
   annunciaTurno();
 }
 
-// transizione di passaggio turno: un banner «tocca a <nome>» col ritratto, che
-// compare e sfuma da solo quando l'eroe attivo cambia (non bloccante)
-// banner riusabile di passaggio turno (ritratto/token + testo), compare e sfuma
-function bannerTurno(imgUrl, testoHtml, variante) {
-  document.querySelectorAll('.turno-banner').forEach((n) => n.remove());
-  const el = document.createElement('div'); el.className = 'turno-banner' + (variante ? ' ' + variante : '');
-  el.innerHTML = `<span class="rit"><img src="${imgUrl || ''}" alt=""></span><span class="tb-txt">${testoHtml}</span>`;
-  document.body.appendChild(el);
-  requestAnimationFrame(() => el.classList.add('on'));
-  setTimeout(() => { el.classList.remove('on'); setTimeout(() => el.remove(), 400); }, 1600);
+// IL DUELLO (mockups/attacco-nemici, variante A, scelta il 07/10/2026). Prima ogni annuncio era un
+// banner volante a meta' schermo che compariva e spariva: copriva la plancia e non diceva CHI veniva
+// colpito. Ora c'e' una striscia sola, sempre in cima alla plancia, che cambia contenuto: di giorno
+// dice a chi tocca, di notte il nemico a sinistra, il bersaglio a destra con le sue vite, il tiro al centro.
+const ritD = (url, cls) => `<span class="rit-d ${cls}">${url ? `<img src="${url}" alt="">` : ''}</span>`;
+function duelloEroiHtml() {
+  const attivo = SP().fase === 'eroi' ? eroiAttivoNome() : null;
+  if (!attivo) return '<span></span><span class="centro-d"><span class="dv">tocca agli eroi</span></span><span></span>';
+  const e = eroe(attivo);
+  return `<span class="chi">${ritD(e && e.art ? urlArt(e.art) : '', 'eroe')}<span class="nome-d"><small>tocca a</small>${esc(primo(attivo))}</span></span><span></span><span></span>`;
 }
 function annunciaTurno() {
   const attivo = eroiAttivoNome();
   if (ctx.ultimoAttivo === (attivo || null)) return;
   ctx.ultimoAttivo = attivo || null;
-  if (!attivo || SP().fase !== 'eroi') return;
-  const e = eroe(attivo);
-  bannerTurno(e && e.art ? urlArt(e.art) : '', `tocca a<br><b>${esc(primo(attivo))}</b>`);
+  const d = ctx.app.querySelector('#duello');
+  if (d && attivo) { d.classList.remove('entra'); void d.offsetWidth; d.classList.add('entra'); }
+}
+// la notte: `fase` = 'agisce' | 'accecato' | 'esito'. Il bersaglio e' l'eroe del piano (`s.attacco.vitt`)
+// o il PNG scortato (`s.attaccoPng`); chi si avvicina e basta non ha bersaglio.
+function duello(s, fase) {
+  const el = ctx.app.querySelector('#duello'); if (!el) return;
+  ctx.duelloOra = performance.now();
+  const a = s.attacco;
+  let dx = '<span></span>';
+  if (a) {
+    const e = eroe(a.vitt); const max = saluteMax(e); const v = Math.max(0, viteVista(a.vitt) ?? max);
+    const perse = fase === 'esito' && a.colpito ? a.dan : 0;
+    const pp = Array.from({ length: max }, (_, k) => `<i class="${k < v ? 'pieno' : k < v + perse ? 'perde' : ''}"></i>`).join('');
+    dx = `<span class="chi destra">${ritD(e && e.art ? urlArt(e.art) : '', 'eroe' + (perse ? ' colpito' : ''))}
+      <span class="nome-d"><small>bersaglio</small>${esc(primo(a.vitt))}<span class="pips-d">${pp}</span></span></span>`;
+  } else if (s.attaccoPng) {
+    const sc = specScort(s.attaccoPng.png);
+    dx = `<span class="chi destra">${ritD(sc.art ? urlArt(sc.art) : '', 'eroe')}<span class="nome-d"><small>bersaglio</small>${esc(sc.nome.toLowerCase())}</span></span>`;
+  }
+  const centro = fase === 'accecato' ? '<span class="dv">accecato: salta</span>'
+    : fase === 'esito' && a ? `<span class="tb-roll">🎲 ${a.tot} ${a.colpito ? '≥' : '<'} Dif ${a.dif}</span>${a.colpito
+      ? `<b class="danno-d">colpisce −${a.dan}</b>` : '<span class="manca-d">manca</span>'}`
+    : `<span class="dv">${a || s.attaccoPng ? 'agisce' : 'si avvicina'}</span><span class="freccia-d">→</span>`;
+  el.className = 'duello notturno';
+  el.innerHTML = `<span class="chi">${ritD(nemArt(s.nome), 'cattivo')}<span class="nome-d cattivo"><small>nemico</small>${nemBreve(s.nome)}</span></span>
+    <span class="centro-d">${centro}</span>${dx}`;
 }
 
 // centra la finestra su un nodo (casella) con scroll animato. `forza` ignora la
@@ -1714,7 +1739,7 @@ function fondoFuori(wrap, z) {
   if (!wrap) return;
   if (!f) { wrap.style.background = ''; return; }
   const lato = Math.round(4 * ctx._geo.cell * (z || 1));
-  wrap.style.background = `linear-gradient(rgba(6,7,9,.9), rgba(6,7,9,.9)), url('${V('pavimenti/' + f)}') 0 0 / ${lato}px ${lato}px repeat, #0a0a0c`;
+  wrap.style.background = `linear-gradient(rgba(2,3,4,.98), rgba(2,3,4,.98)), url('${V('pavimenti/' + f)}') 0 0 / ${lato}px ${lato}px repeat, #0a0a0c`;
 }
 
 function applicaZoom(z) {
@@ -1748,7 +1773,7 @@ function applicaZoom(z) {
 const immersivo = () => true;
 
 // IL FULLSCREEN VA CHIESTO SU `document.documentElement`, MAI SU `#app`:
-// `.turno-banner` e `.dadi-overlay` sono appesi a `document.body`, e con un
+// `.dadi-overlay` e' appeso a `document.body`, e con un
 // sotto-elemento a schermo intero sparirebbero — compreso il pannello dei dadi,
 // che al tavolo e' l'unico modo di dichiarare un tiro.
 function chiediSchermoIntero(on) {
@@ -2429,6 +2454,7 @@ function vistaNemici(piano) {
     <div class="pannello secondario"><p><b>Turno dei nemici.</b> ${esc(ep.obiettivo ? '' : '')}Ogni nemico si avvicina all’eroe più vicino e colpisce se adiacente.</p></div>
     <div class="mt"></div>
     <div class="board-area">
+      <div class="duello notturno" id="duello"><span></span><span class="centro-d"><span class="dv">la notte si muove…</span></span><span></span></div>
       <div class="board-wrap" id="board-wrap">${boardHtml(true)}</div>
       <div class="zoom-ctrl"><button class="zoom-btn" data-zoom="-">−</button><button class="zoom-btn" data-zoom="0">⤢</button><button class="zoom-btn" data-zoom="+">+</button></div>
     </div>
@@ -2513,8 +2539,8 @@ async function eseguiTurnoNemici(piano) {
     const tokel = ctx.app.querySelector(`.tok-slot[data-tok="N:${s.i}"] .tok-board`);
     centraSuNodo(s.pos0, `nem-${s.i}-a`, true);
     await ritmo(650);
-    if (s.flash) { bannerTurno(nemArt(s.nome), `<b>${nemBreve(s.nome)}</b><br>accecato: salta`, 'nemico'); await ritmo(1100); continue; }
-    bannerTurno(nemArt(s.nome), `agisce<br><b>${nemBreve(s.nome)}</b>`, 'nemico');
+    if (s.flash) { duello(s, 'accecato'); await ritmo(1100); continue; }
+    duello(s, 'agisce');
     if (tokel) tokel.classList.add('attivo-nem');
     if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); await ritmo(300); }
     // AL TAVOLO i dadi del nemico li tira il tavolo, adesso: contro il PNG
@@ -2552,10 +2578,7 @@ async function eseguiTurnoNemici(piano) {
         }
       }
       // tiro VISIBILE: 2d6 + Attacco vs Difesa dell'eroe (i nemici tirano i dadi, non colpiscono al 100%)
-      const tiro = `<span class="tb-roll">🎲 ${a.tot} ${a.colpito ? '≥' : '<'} Dif ${a.dif}</span>`;
-      bannerTurno(nemArt(s.nome), a.colpito
-        ? `<b>${nemBreve(s.nome)}</b> colpisce ${esc(primo(a.vitt))} ${tiro} <b class="ko-txt">−${a.dan}</b>`
-        : `<b>${nemBreve(s.nome)}</b> manca ${esc(primo(a.vitt))} ${tiro}`, 'nemico');
+      duello(s, 'esito');
       const sn = ctx.app.querySelector('#salute-nem'); if (sn) sn.innerHTML = saluteHtml();
       await ritmo(1050);
     } else { await ritmo(650); }
@@ -2566,7 +2589,7 @@ async function eseguiTurnoNemici(piano) {
   // («colpisce», «manca») e il numero del danno, e intanto la plancia tornava agli eroi: si poteva gia'
   // muovere mentre la notte stava ancora parlando. Si aspetta che spariscano (al massimo 2,5 s).
   if (!ctx.saltaNemici) {
-    for (let atteso = 0; atteso < 2500 && document.querySelector('.turno-banner.nemico, .dmg-pop'); atteso += 100) await pausa(100);
+    for (let atteso = 0; atteso < 2500 && (performance.now() - (ctx.duelloOra || 0) < 2000 || document.querySelector('.dmg-pop')); atteso += 100) await pausa(100);
   }
   piano.annunci.forEach((a) => log(a));
   ctx.viteVista = null;          // da qui in poi si mostra lo stato reale

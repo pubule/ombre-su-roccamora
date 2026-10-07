@@ -25,12 +25,12 @@ await pg.goto('http://localhost:8017', { waitUntil: 'domcontentloaded' });
 await pg.getByText(EP.titolo).first().click();
 await pg.waitForSelector('#apri-caso'); await pg.click('#apri-caso');
 await pg.waitForSelector('#via'); await pg.click('#via');
-// i tempi veri: quando compare l'ultimo banner della notte e quando la plancia torna agli eroi
+// i tempi veri: quando il duello della notte cambia l'ultima volta e quando la plancia torna agli eroi
 await pg.evaluate(() => {
   window.__gap = []; let nato = 0; let attesa = false;
   new MutationObserver((ms) => {
     for (const m of ms) for (const n of m.addedNodes) {
-      if (n.nodeType === 1 && n.matches && n.matches('.turno-banner.nemico')) { nato = performance.now(); attesa = true; }
+      if (n.nodeType === 1 && n.closest && n.closest('#duello.notturno')) { nato = performance.now(); attesa = true; }
     }
     if (attesa && document.querySelector('#col-eroi')) { window.__gap.push(Math.round(performance.now() - nato)); attesa = false; }
   }).observe(document.body, { childList: true, subtree: true });
@@ -40,9 +40,9 @@ const istante = () => pg.evaluate(() => ({
   hud: !!document.querySelector('#col-eroi'),
   celle: document.querySelectorAll('.cella-mossa').length,
   attivo: document.querySelectorAll('.tok-board.attivo').length,
-  banner: [...document.querySelectorAll('.turno-banner')].map((x) => x.innerText.replace(/\n/g, ' ')).join('|'),
+  banner: [...document.querySelectorAll('#duello.notturno')].map((x) => x.innerText.replace(/\n/g, ' ')).join('|'),
   notte: document.querySelectorAll('.attivo-nem').length,
-  bannerNotte: document.querySelectorAll('.turno-banner.nemico, .dmg-pop').length,
+  bannerNotte: document.querySelectorAll('#duello.notturno, .dmg-pop').length,
 }));
 const campioni = [];
 const presto = [];   // istanti in cui la plancia e' gia' degli eroi ma la notte sta ancora parlando
