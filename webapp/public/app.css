@@ -1272,20 +1272,18 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 /* z-index:5, come i token (Global Constraints): sopra canvas.buio (4), o le
    caselle raggiungibili sparirebbero sotto il buio in una stanza non ancora
    illuminata — e si perderebbe la giocabilita', non solo l'effetto. */
-.cella-mossa { position: absolute; box-sizing: border-box; cursor: pointer; z-index: 5;
-  background: rgba(95,184,176,.42); border: 2px solid #7fe6db; box-shadow: inset 0 0 16px rgba(127,230,219,.6); }
-/* il quadrato, non il cerchio: i Global Constraints (mockups/tessere-alt/
-   lanterne.css `.cella::after`) usano un border-radius fisso, non una %,
-   perche' sulla mappa le caselle sono caselle, non gettoni. */
-.cella-mossa::after { content: ''; position: absolute; left: 50%; top: 50%;
-  width: 72%; height: 72%; transform: translate(-50%,-50%); border-radius: 8px;
-  border: 3px solid var(--segnale-mossa); box-shadow: 0 0 10px 2px rgba(127,230,219,.9);
-  animation: ragg-pulse 1.1s ease-in-out infinite; }
-.cella-mossa:hover { background: rgba(127,230,219,.6); }
-.cella-mossa.reveal { background: rgba(216,178,94,.4); border-color: var(--segnale-rivela); box-shadow: inset 0 0 16px rgba(216,178,94,.6); }
-.cella-mossa.reveal::after { border-color: var(--segnale-rivela); box-shadow: 0 0 10px 2px rgba(216,178,94,.9); }
-@keyframes ragg-pulse { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(.8); }
-  50% { opacity: 1; transform: translate(-50%,-50%) scale(1.15); } }
+.cella-mossa { position: absolute; box-sizing: border-box; cursor: pointer; z-index: 5; background: rgba(232,194,122,.08); }
+/* IL CONFINE (mockups/celle-mossa, variante C): niente quadrati azzurri. Un filo d'oro attorno all'area
+   raggiungibile (`.confine-mossa`, un lato per ogni bordo fra dentro e fuori), dentro appena un calore;
+   la casella puntata si accende, il percorso a puntini dice da dove si passa. */
+.cella-mossa:hover, .cella-mossa.scelta { background: rgba(232,194,122,.24); box-shadow: inset 0 0 0 1px rgba(244,214,138,.6); }
+.confine-mossa { position: absolute; z-index: 5; pointer-events: none; background: #f4d68a; box-shadow: 0 0 6px rgba(244,214,138,.8); opacity: .85; }
+.passo-mossa { position: absolute; z-index: 6; width: 12px; height: 12px; border-radius: 50%; transform: translate(-50%,-50%); pointer-events: none;
+  background: #f4d68a; box-shadow: 0 0 8px #f4d68a; opacity: .9; }
+.cella-mossa.reveal { background: rgba(232,194,122,.16); }
+.cella-mossa.reveal::after { content: ''; position: absolute; left: 50%; top: 50%; width: 26%; aspect-ratio: 1; transform: translate(-50%,-50%) rotate(45deg);
+  border: 2px solid var(--segnale-rivela); box-shadow: 0 0 10px var(--segnale-rivela); animation: ragg-pulse 1.8s ease-in-out infinite; }
+@keyframes ragg-pulse { 50% { opacity: .4; } }
 .oro { color: var(--segnale-rivela); }
 /* z-index:5 (Global Constraints, lanterne.css `.tok`): sopra canvas.buio (4),
    o il token si vedrebbe scurito dal buio come se fosse terreno. */

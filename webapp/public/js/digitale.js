@@ -855,11 +855,48 @@ function boardHtml(senzaMosse) {
   }
 
   // celle raggiungibili (cliccabili) sopra le tessere
-  const raggHtml = Object.values(ragg).map((v) => {
+  // IL CONFINE (mockups/celle-mossa, variante C, scelta il 07/10/2026): al posto dei quadrati azzurri
+  // un filo d'oro attorno a tutta l'area raggiungibile, dentro appena un calore. Le caselle restano
+  // i bersagli del tocco; `ctx.mosse` tiene per ognuna da dove si arriva, per il percorso a puntini.
+  const pos = (k) => { const [t, x, y] = k.split(','); return scr({ t, x: +x, y: +y }); };
+  ctx.mosse = {}; ctx.mossaScelta = null;
+  const dentro = new Set();
+  for (const [k, v] of Object.entries(ragg)) {
+    for (let c = k; c; c = (ragg[c] || {}).prev) {
+      const p = pos(c); dentro.add(`${p.l},${p.t}`);
+      if (!ragg[c]) break;                 // la partenza, o un alleato attraversato: il cammino finisce o prosegue fuori da ragg
+    }
+    const p = pos(k); ctx.mosse[k] = { ...p, prev: v.prev, dist: v.dist };
+  }
+  // I NODI DI PASSAGGIO fuori da ragg: la partenza e gli alleati che si attraversano. Il motore li
+  // esclude (non ci si ferma sopra), e con loro il passo da cui si arriva: senza, il percorso a
+  // puntini si spezzava sull'alleato. Si ricostruisce dalle distanze: la loro e' quella del figlio
+  // meno uno, e si arriva dal vicino piu' vicino alla partenza. Chi non ha un vicino piu' vicino e' la partenza.
+  for (const v of Object.values(ragg)) {
+    if (!v.prev || ragg[v.prev]) continue;
+    const m = ctx.mosse[v.prev] || (ctx.mosse[v.prev] = { ...pos(v.prev), prev: null, dist: Infinity });
+    m.dist = Math.min(m.dist, v.dist - 1);
+  }
+  const vicino = (a, b) => Math.abs(a.l - b.l) + Math.abs(a.t - b.t) === cell;
+  for (const m of Object.values(ctx.mosse)) {
+    if (m.prev) continue;
+    let best = null;
+    for (const [k2, n] of Object.entries(ctx.mosse)) if (n.dist < m.dist && vicino(m, n) && (!best || n.dist < ctx.mosse[best].dist)) best = k2;
+    m.prev = best;
+  }
+  const confine = [];
+  for (const q of dentro) {
+    const [l, t] = q.split(',').map(Number); const d = (x, y) => dentro.has(`${x},${y}`);
+    if (!d(l, t - cell)) confine.push([l, t, cell, 2]);
+    if (!d(l, t + cell)) confine.push([l, t + cell - 2, cell, 2]);
+    if (!d(l - cell, t)) confine.push([l, t, 2, cell]);
+    if (!d(l + cell, t)) confine.push([l + cell - 2, t, 2, cell]);
+  }
+  const raggHtml = Object.entries(ragg).map(([k, v]) => {
     const p = scr(v.node);
     return `<div class="cella-mossa${v.reveal ? ' reveal' : ''}" style="left:${p.l}px;top:${p.t}px;width:${cell}px;height:${cell}px"
-      data-t="${v.node.t}" data-x="${v.node.x}" data-y="${v.node.y}"${v.reveal ? ` data-reveal="${v.reveal}"` : ''}></div>`;
-  }).join('');
+      data-k="${esc(k)}" data-t="${v.node.t}" data-x="${v.node.x}" data-y="${v.node.y}"${v.reveal ? ` data-reveal="${v.reveal}"` : ''}></div>`;
+  }).join('') + confine.map(([l, t, w, h]) => `<i class="confine-mossa" style="left:${l}px;top:${t}px;width:${w}px;height:${h}px"></i>`).join('');
 
   // IL SANGUE SUL TOKEN. Quanto ne resta si vede sul token stesso, che è dove
   // guarda chi gioca: una velatura rossa che sale dal basso man mano che la
@@ -1063,7 +1100,7 @@ function azioniHtml() {
     const s = specScort(iS); const mov = s.mov || 3; const nome = s.nome || 'chi scortate';
     const n = Object.keys(raggScortato(iS)).length;
     return `<p class="nota">Tocca a <b>${esc(nome)}</b> — si muove con voi (Mov ${mov}), <b>non compie azioni</b>.</p>
-      <p class="nota mt">${n ? `▸ Toccate una <b class="verde">casella verde</b> per muovere ${esc(nome)} (fino a ${mov} caselle). Portate ${esc(nome)} in <b>${esc(s.meta || '')}</b> per vincere.` : `▸ ${esc(nome)} non ha caselle libere raggiungibili (nemici o arredi intorno).`}</p>
+      <p class="nota mt">${n ? `▸ Toccate una casella <b class="oro">dentro il filo d’oro</b> per muovere ${esc(nome)} (fino a ${mov} caselle). Portate ${esc(nome)} in <b>${esc(s.meta || '')}</b> per vincere.` : `▸ ${esc(nome)} non ha caselle libere raggiungibili (nemici o arredi intorno).`}</p>
       ${arbitro()
         ? `<div class="btn-riga mt"><button class="btn pieno" id="rug-fine">${esc(nome)} ha finito →</button></div>`
         : `<p class="nota mt">Lo conduce chi arbitra: ${esc(nome)} non è l’eroe di nessuno.</p>`}`;
@@ -1100,7 +1137,7 @@ function azioniHtml() {
   const rigaMossa = mosseSpese
     ? `▸ <b>${esc(primo(attivo))}</b> ha già usato il movimento (1 per turno): ora può attaccare, cercare o passare.`
     : nMosse
-      ? `▸ Toccate una <b class="verde">casella verde</b> per muovere ${esc(primo(attivo))} (fino a ${movimento(attivo)} caselle; le porte si attraversano a piedi, le caselle <b class="oro">dorate</b> rivelano una stanza nuova).${stat.ostacolo(G()).doppio ? ' <b class="ko-txt">Ostacolo: sulla sua tessera ogni passo costa 2.</b>' : ''}${stat.ostacolo(G()).meno1 ? ' <b class="ko-txt">Ostacolo: −1 al Movimento.</b>' : ''}`
+      ? `▸ Toccate una casella <b class="oro">dentro il filo d’oro</b> per muovere ${esc(primo(attivo))} (fino a ${movimento(attivo)} caselle; le porte si attraversano a piedi, le caselle col <b class="oro">rombo d’oro</b> rivelano una stanza nuova).${stat.ostacolo(G()).doppio ? ' <b class="ko-txt">Ostacolo: sulla sua tessera ogni passo costa 2.</b>' : ''}${stat.ostacolo(G()).meno1 ? ' <b class="ko-txt">Ostacolo: −1 al Movimento.</b>' : ''}`
       : `▸ Nessuna casella raggiungibile: ${esc(primo(attivo))} <b>non ha dove andare</b> (nemici o arredi tutt’intorno). Può attaccare un nemico adiacente, cercare o passare.`;
   return `
     <p class="nota">Tocca a <b>${esc(primo(attivo))}</b> — ${fatte.length}/${azioniMax(attivo)} azioni${fatte.length ? ' (' + fatte.map((t) => tipiAzione[t]).join(', ') + ')' : ''}${stordito(attivo) ? ' <b class="ko-txt">· stordito (1 azione)</b>' : ''}.</p>
@@ -1541,8 +1578,31 @@ async function usaOggetto(nm) {
 function aggancia() {
   const { app } = ctx; const sp = SP(); const attivo = eroiAttivoNome();
   suoni.agganciaBottone(app, statoSuoni);
-  app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = async () => {
+  // IL PERCORSO A PUNTINI: al passaggio del mouse, e sul telefono al primo tocco (il secondo conferma)
+  const percorso = (k) => {
+    app.querySelectorAll('.passo-mossa').forEach((n) => n.remove());
+    const bd = app.querySelector('.board-digitale'); const cell = ctx._geo.cell; const m = ctx.mosse || {};
+    for (let c = k; c && m[c] && m[c].prev && m[m[c].prev]; c = m[c].prev) {
+      const a = m[c], b = m[m[c].prev];
+      for (const f of [.25, .75]) {
+        const d = document.createElement('i'); d.className = 'passo-mossa';
+        d.style.left = (b.l + (a.l - b.l) * f + cell / 2) + 'px'; d.style.top = (b.t + (a.t - b.t) * f + cell / 2) + 'px';
+        bd.append(d);
+      }
+    }
+  };
+  app.querySelectorAll('.cella-mossa').forEach((c) => {
+    c.onmouseenter = () => percorso(c.dataset.k);
+    c.onmouseleave = () => { if (ctx.mossaScelta !== c.dataset.k) percorso(ctx.mossaScelta); };
+  });
+  app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = async (ev) => {
     if (scivolando) return;                     // gia' in cammino
+    if (ev.pointerType && ev.pointerType !== 'mouse' && ctx.mossaScelta !== c.dataset.k) {
+      ctx.mossaScelta = c.dataset.k; percorso(c.dataset.k);
+      app.querySelectorAll('.cella-mossa.scelta').forEach((x) => x.classList.remove('scelta')); c.classList.add('scelta');
+      return;
+    }
+    ctx.mossaScelta = null;
     const node = { t: c.dataset.t, x: +c.dataset.x, y: +c.dataset.y };
     // l'esca si posa e basta: nessuno scivola, e la carica si spende ORA —
     // fino a qui il giocatore poteva ancora cambiare idea

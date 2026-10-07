@@ -73,19 +73,17 @@ async function parte1() {
     const board = document.querySelector('.board-digitale');
     const zoomOrig = board ? board.style.zoom : null;
     if (board) board.style.zoom = '1';
-    const cellaMossa = document.querySelector('.cella-mossa');
+    const cellaMossa = document.querySelector('.cella-mossa:not(.reveal)');
     const dopo = cellaMossa ? getComputedStyle(cellaMossa, '::after') : null;
     const risultato = {
       stanze: document.querySelectorAll('.stanza-fa').length,
       pngVecchi: [...document.querySelectorAll('.tessera-b')].filter((e) => /\/board\//.test(e.style.backgroundImage)).length,
       buio: !!document.querySelector('.board-digitale canvas.buio'),
       nemiciSuCoperte: [...document.querySelectorAll('.tok-board.nemico')].length,
-      quadrati: dopo ? dopo.borderRadius : null,
-      bordo: dopo ? dopo.borderTopWidth : null,
-      // width/height del ::after arrivano gia' risolti in px (percentuali
-      // sull'altezza/larghezza della .cella-mossa): il 72% dei Global
-      // Constraints si verifica cosi', non leggendo lo stile percentuale.
-      percento: dopo && cellaMossa.offsetWidth ? Math.round((parseFloat(dopo.width) / cellaMossa.offsetWidth) * 100) : null,
+      // IL CONFINE (mockups/celle-mossa, variante C, 07/10/2026): i quadrati col bordo al 72% non ci sono piu',
+      // c'e' un filo d'oro attorno all'area raggiungibile e la casella semplice non ha piu' il riquadro interno
+      confine: document.querySelectorAll('.confine-mossa').length,
+      riquadro: dopo ? dopo.content : null,
       credito: /Forgotten Adventures/.test(document.body.innerText),
     };
     if (board) board.style.zoom = zoomOrig;
@@ -105,9 +103,8 @@ async function parte1() {
   // "disegna anche le coperte" (Step 7.2) NON fa fallire questo controllo: la
   // garanzia non sta nel rendering, sta nel motore, a monte del disegno.
   if (c.nemiciSuCoperte) fail('nemici visibili prima che la loro stanza sia svelata');
-  if (c.quadrati !== '8px') fail(`le caselle non sono quadrati (border-radius ${c.quadrati})`);
-  if (c.bordo !== '3px') fail(`il bordo della casella non e' 3px (${c.bordo})`);
-  if (c.percento !== null && (c.percento < 68 || c.percento > 76)) fail(`la casella non e' al 72% della cella (${c.percento}%)`);
+  if (c.confine < 4) fail(`manca il filo d'oro attorno alle caselle raggiungibili (${c.confine} lati)`);
+  if (c.riquadro && c.riquadro !== 'none') fail(`la casella ha ancora il riquadro interno (${c.riquadro})`);
   if (!c.credito) fail('manca il credito di Forgotten Adventures');
 
   // uscire dalla spedizione: il ciclo della luce si ferma (Task 4 + Step 4)
