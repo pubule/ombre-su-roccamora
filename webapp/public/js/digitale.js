@@ -127,8 +127,8 @@ const tavoloTiraNemici = () => !P().nemiciApp && arbitro();
 const RIPIEGO_NEMICI = { label: 'da qui i dadi della notte li tira l’app' };
 function accendiNemiciApp() { P().nemiciApp = true; salvaP(); }
 
-// L'interruttore «dadi della notte»: i tiri dei nemici e le prove d'insidia delle carte Minaccia
-// (uno per eroe). Acceso, li tira l'app senza chiedere niente; i dadi degli eroi restano vostri.
+// L'interruttore «dadi della notte»: i tiri d'attacco dei nemici. Acceso, li tira l'app senza chiedere
+// niente; i dadi degli eroi restano vostri, comprese le prove d'insidia delle carte (vedi tiroInsidia).
 const togNotteHtml = () => `<button class="btn" id="tog-nemici-app">dadi della notte: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button>`;
 function agganciaTogNotte(app) {
   app.querySelector('#tog-nemici-app')?.addEventListener('click', (ev) => {
@@ -137,15 +137,16 @@ function agganciaTogNotte(app) {
   });
 }
 
-// La prova d'insidia di una carta Minaccia, per un eroe: l'app la tira da sola se l'interruttore
-// e' acceso, altrimenti la chiede al tavolo (con il ripiego «da qui li tira l'app»).
-async function tiroInsidia({ titolo, diffLabel, soglia, eroe: chi, bonus }) {
-  if (P().nemiciApp) {
-    const tot = r1() + r1() + bonus.reduce((a, b) => a + b.val, 0);
-    return { tot, ok: tot >= soglia };
-  }
-  const r = await tiraProva({ titolo, diffLabel, soglia, eroe: chi, bonus, modo: modoDadi(), ripiegoSempre: RIPIEGO_NEMICI });
-  if (r && r.sempre) accendiNemiciApp();
+// La prova d'insidia di una carta Minaccia, per un eroe. E' un tiro DEGLI EROI: si chiede sempre,
+// anche con «dadi della notte: l'app», che vale solo per gli attacchi dei nemici (deciso al tavolo il
+// 07/10/2026: con l'interruttore acceso l'app tirava anche le insidie, e sembrava che il tiro mancasse).
+// Per non tirare a mano quattro volte i Fumi c'e' il ripiego «tira l'app per tutta la carta»: vale
+// per gli eroi che restano di QUESTA carta (`perCarta.app`), non resta acceso.
+const RIPIEGO_CARTA = { label: 'tira l’app per tutta la carta' };
+async function tiroInsidia({ titolo, diffLabel, soglia, eroe: chi, bonus }, perCarta) {
+  if (perCarta.app) { const tot = r1() + r1() + bonus.reduce((a, b) => a + b.val, 0); return { tot, ok: tot >= soglia }; }
+  const r = await tiraProva({ titolo, diffLabel, soglia, eroe: chi, bonus, modo: modoDadi(), ripiegoSempre: RIPIEGO_CARTA });
+  if (r && r.sempre) perCarta.app = true;
   return r;
 }
 
@@ -1330,12 +1331,12 @@ async function bersagliInsidia(rules) {
 async function risolviInsidia(carta, req) {
   const targets = await bersagliInsidia(carta.rules);
   if (!targets) return null;
-  const soglia = ctx.comune.regole.diff[req.diff];
+  const soglia = ctx.comune.regole.diff[req.diff]; const perCarta = { app: false };
   const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
   for (const t of targets) {
     const e = eroe(t);
     const r = await tiroInsidia({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff, soglia, eroe: ritrattoDi(t),
-      bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)] });
+      bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)] }, perCarta);
     if (r == null) return null;
     esiti.push(`${primo(t)} prova ${req.stat.toUpperCase()} (${req.diff}): 🎲 ${r.tot} contro ${soglia}, ${r.ok ? 'superata' : 'fallita'}.`);
     if (!r.ok) esiti.push(...applicaConseguenza(t, carta.rules));
@@ -1417,7 +1418,7 @@ function schermataCarta(aperta, alOk = null) {
          <div class="btn-riga">
            ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
            <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
-         </div>${req ? `<div class="btn-riga mt">${togNotteHtml()}</div>` : ''}`
+         </div>`
       : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
   // NIENTE LAMPO: la stessa carta non si riscrive. La schermata da leggere
   // insieme arriva da piu' parti — il disegno di qui, la spinta del tavolo
@@ -1483,7 +1484,7 @@ function messaggioCarta(titolo, carta, annunci) {
       ${arbitro() ? `<div class="btn-riga">
         ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
         <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
-      </div>${req ? `<div class="btn-riga mt">${togNotteHtml()}</div>` : ''}`
+      </div>`
       // SUL TELEFONO DI CHI GIOCA nessun bottone: la pesca e' di chi arbitra, e
       // un «continua» che non fa continuare niente sarebbe una bugia. La carta
       // resta finche' il tavolo non va avanti — deciso il 13/08/2026: il
