@@ -7,7 +7,7 @@ TTS in locale (Chatterbox Multilingual, RTX 3070 Ti) che clona `voci/narratore.w
 - Si legge: lettera (senza il corsivo lungo «Luoghi disponibili...»), testo dei luoghi intero, tessere fino alla prima frase di regola (regex `REGOLA`). `--prova` lo verifica su tutti gli episodi (sabotaggio della regex rilevato).
 - Difetti di Chatterbox gestiti: cifre lette male (si scrivono in lettere), parole inventate sui blocchi corti (blocchi 120-250 caratteri), sillabe spurie in coda (riascolto con Whisper, coda tagliata, fino a 3 rigenerazioni sotto l'85%).
 - Uscita: `voci/generati/<ep>/lettera.mp3`, `luogo-NN.mp3`, `T1.mp3`...; `indice.json` con la somiglianza di ogni file; il log finale elenca i file da riascoltare. La campagna riprende saltando i .mp3 gia' fatti.
-- Generazione completa (331 testi, ~5 ore di audio) lanciata in modalita' studio; senza pause stimata sotto le 13 ore. L'app NON riproduce ancora questi audio: integrazione da progettare.
+- Generazione completa (331 testi, ~5 ore di audio, ~10-12 ore di lavoro) FERMATA dall'autore dopo 9 file del Preludio: vuole valutare un'altra voce. Come cambiarla e cosa rigenerare: intestazione di `scripts/voce.py`. L'app NON riproduce ancora questi audio: integrazione da progettare.
 
 ## EFFETTI DELLE DOMANDE resi giocabili (06/10/2026): lucchetto Ep.1, casse Ep.5
 

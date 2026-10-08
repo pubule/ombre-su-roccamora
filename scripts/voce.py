@@ -20,7 +20,23 @@ Uso:
   python scripts/voce.py --campagna [--episodi ep3,ep4] [--effetto studio]
   python scripts/voce.py --prova          # controlli sulla preparazione del testo
 
-Effetti: nessuno, studio, fonografo, sotterraneo, noir.
+Effetti (--effetto, predefinito: studio):
+  studio       voce calda e vicina, compressione dolce, stanza piccola in legno
+  fonografo    banda stretta, saturazione, fruscio e crepitii da cilindro 1889
+  sotterraneo  riverbero lungo e scuro, rombo grave di fondo
+  noir         voce ravvicinata e compressa, eco corta, tappeto scuro
+  nessuno      voce nuda: solo il volume portato allo stesso livello (loudnorm)
+
+Cambiare la voce di riferimento:
+  1. fermare una --campagna in corso: la voce si rilegge a ogni blocco, e
+     sostituirla a meta' mescola due voci nello stesso file;
+  2. ffmpeg -i nuovo.m4a -ac 1 -ar 24000 voci/narratore.wav
+     (10-20 s, una voce sola, niente musica ne' riverbero, letta col tono voluto;
+     una voce che si ha il diritto di usare: propria o di chi acconsente);
+  3. i .mp3 gia' fatti si saltano: per rifarli con la voce nuova cancellare
+     voci/generati/ (o solo voci/generati/ep3/) e rilanciare --campagna.
+  Per provare una voce senza toccare quella principale: --voce voci/altra.wav.
+
 Il primo avvio crea l'ambiente in %LOCALAPPDATA%\\osr-voce (~4 GB: torch CUDA,
 Chatterbox, faster-whisper). Serve ffmpeg nel PATH.
 La campagna riparte da dove si era fermata: i .mp3 gia' fatti si saltano.
@@ -287,8 +303,9 @@ def main():
     a.add_argument('testo', nargs='?')
     a.add_argument('--file')
     a.add_argument('-o', '--uscita')
-    a.add_argument('--effetto', default='studio', choices=['nessuno', 'studio', 'fonografo', 'sotterraneo', 'noir'])
-    a.add_argument('--voce', default=str(VOCE))
+    a.add_argument('--effetto', default='studio', choices=['nessuno', 'studio', 'fonografo', 'sotterraneo', 'noir'],
+                   help='trattamento audio (predefinito: studio; nessuno = solo volume uniforme)')
+    a.add_argument('--voce', default=str(VOCE), help='voce di riferimento (predefinita: voci/narratore.wav)')
     a.add_argument('--pausa', type=float, default=0.0, help='secondi di riposo della GPU tra un blocco e l\'altro')
     a.add_argument('--campagna', action='store_true')
     a.add_argument('--episodi', help='es. ep3,ep4 (con --campagna)')
