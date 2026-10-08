@@ -262,6 +262,11 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
     dati(partita.episodio), dati('comune'), dati('carte')]);
   // L'episodio come i Bivi l'hanno lasciato (una copia: `dati()` e' in cache)
   const ep = episodioColBivio(ep0, partita.bivi);
+  // IL FILO DI PRIMA SI CHIUDE. Ogni ingresso nella Spedizione (aprire l'episodio dal menu, tornare dopo
+  // un «← menu») apriva un filo nuovo col tavolo lasciando vivo il vecchio: con due fili l'eco di una
+  // propria mossa arrivava due volte, la seconda non riconosciuta come propria, e veniva rimessa in
+  // scena come il tiro di un altro — i dadi due volte, col loro «continua» (07/10/2026).
+  if (ctx && ctx.canale) { ctx.canale.chiudi(); ctx.canale = null; }
   ctx = { app, partita, ep, comune, carte, vaiA, layout: null, posto: posto || null,
           canale: null, tavoloVivo: false, rifMiei: new Set(),
           // L'HUD A TRE COLONNE (Task 6, 28/09/2026): quale scheda e' aperta sul
