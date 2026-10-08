@@ -2174,7 +2174,7 @@ async function eseguiMossa(comando) {
     const out = applica(ctx.partita, tiri ? { ...comando, tiri } : comando, dati);
     if (out.rifiuto) {
       if (tiri && /non bastano/i.test(out.rifiuto.motivo)) {
-        const d = await chiediTiro(azioni.provaDi(G(), comando));
+        const d = await chiediTiro(azioni.provaDi(G(), { ...comando, tiri }));
         if (!d) return false;
         tiri.push(d);
         continue;

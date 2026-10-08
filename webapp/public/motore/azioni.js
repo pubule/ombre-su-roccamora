@@ -81,6 +81,14 @@ export function applicaConseguenza(g, nm, testo) {
 export function provaDi(g, comando) {
   const nm = comando.eroe;
   if (comando.tipo === 'cerca') {
+    // LA SECONDA PROVA DELLA RICERCA: l'oggetto «rischioso» (Ep.1 T3/T4, Ep.2 T3) chiede, dopo la ricerca,
+    // un'altra prova per PRENDERLO (NERVI). Il motore la tira dopo la prima; chi gioca al tavolo la
+    // dichiara dopo la prima, e prima la finestra dei dadi ripeteva quella della ricerca («cercare —
+    // media»): sembrava di tirare due volte la stessa cosa. `tiri.length` dice a che punto si e'.
+    if ((comando.tiri || []).length >= 1) {
+      const t = tileDi(g, g.sp.eroiPos[nm].t); const req = provaRichiesta(t && t.cerca);
+      return req ? prova(g, nm, req.stat, req.diff, [], `${t.id} — prendere l’oggetto — ${primo(nm)}`) : null;
+    }
     const extra = nm === 'ELENA FOSCO' ? [{ label: 'Occhio Clinico', val: 2 }] : [];
     return prova(g, nm, 'acume', 'Media', extra, `cercare — ${primo(nm)}`);
   }
@@ -273,7 +281,7 @@ export function cercare(g, caso, nm) {
   // se il testo dell'oggetto richiede una prova (es. presa rischiosa NERVI)
   const req = provaRichiesta(esito.esito);
   if (req) {
-    const p2 = prova(g, nm, req.stat, req.diff, [], `${tile.id} — cercare`);
+    const p2 = prova(g, nm, req.stat, req.diff, [], `${tile.id} — prendere l’oggetto — ${primo(nm)}`);
     const t2 = tiraLa(caso, p2);
     eventi.push({ tipo: 'tiro', causa: 'oggetto', testo: esito.esito, titolo: p2.titolo, ...t2 });
     if (!t2.ok) {

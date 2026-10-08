@@ -49,5 +49,23 @@ ok(ev && ev.trovato && cartaOggetto(CARTE, 'ep2', ev.trovato.nome), 'la sua cart
 const stato2 = out.stato; stato2.spedizione.cercate = {}; stato2.spedizione.azioni = {}; stato2.spedizione.eroiFatti = [];
 const out2 = applica(stato2, { tipo: 'cerca', eroe: A, tiri: [[6, 6]] }, { ep: EP2, comune: COMUNE, carte: CARTE });
 ok((out2.stato.indagine.oggetti || []).filter((x) => /badile/i.test(x)).length === 1, 'cercando di nuovo l\'inventario non lo duplica');
+
+// L'OGGETTO RISCHIOSO (Ep.2 T3, la Latta d'Olio): dopo la ricerca (ACUME) c'e' una seconda prova per
+// PRENDERLO (NERVI). Segnalato (08/10/2026): al tavolo la finestra dei dadi ripeteva «cercare — media»,
+// e sembrava di tirare due volte la stessa cosa. La seconda prova dichiarata e' quella dell'oggetto.
+import { provaDi } from './public/motore/azioni.js';
+const rischioso = JSON.parse(JSON.stringify(stato));
+rischioso.spedizione.eroiPos[A] = { t: 'T3', x: 1, y: 1 }; rischioso.spedizione.rivelate = ['T1', 'T2', 'T3'];
+rischioso.indagine.oggetti = [];
+const gR = { ep: EP2, comune: COMUNE, carte: CARTE, sp: rischioso.spedizione, partita: rischioso };
+const p1 = provaDi(gR, { tipo: 'cerca', eroe: A });
+const p2 = provaDi(gR, { tipo: 'cerca', eroe: A, tiri: [[6, 6]] });
+ok(p1 && /cercare/.test(p1.titolo) && p1.bonus.some((b) => b.label === 'ACUME'), `la prima prova e' la ricerca (${p1 && p1.titolo})`);
+ok(p2 && /prendere/.test(p2.titolo) && p2.bonus.some((b) => b.label === 'NERVI'), `la seconda e' quella dell'oggetto, NERVI (${p2 && p2.titolo})`);
+const solo = applica(rischioso, { tipo: 'cerca', eroe: A, tiri: [[6, 6]] }, { ep: EP2, comune: COMUNE, carte: CARTE });
+ok(solo.rifiuto && /non bastano/i.test(solo.rifiuto.motivo), 'con un solo dado il motore ne chiede un secondo');
+const due = applica(rischioso, { tipo: 'cerca', eroe: A, tiri: [[6, 6], [1, 1]] }, { ep: EP2, comune: COMUNE, carte: CARTE });
+ok(!due.rifiuto && (due.stato.indagine.oggetti || []).some((x) => /latta/i.test(x)), 'con due dadi la ricerca si chiude e la latta e nell inventario');
+ok(due.eventi.some((e) => e.tipo === 'conseguenza'), 'la seconda prova fallita (2) applica la conseguenza');
 console.log(ko ? `${ko} KO` : 'Tutto verde');
 process.exit(ko ? 1 : 0);
