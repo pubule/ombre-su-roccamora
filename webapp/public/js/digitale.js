@@ -2775,7 +2775,10 @@ const epilogoTesto = (ep, esito) => {
   // l'Ep.20 e' l'unico che ha anche l'epilogo della sconfitta: il Dormiente
   // che si desta e' un finale, non un fallimento da rileggere in silenzio
   const t = esito === 'sconfitta' ? (e.sconfitta || '') : (e.vittoria || '');
-  return t ? `<div class="epilogo-testo mt">${rendi(t)}</div>` : '';
+  // SCRITTO A MANO SOLO IL PARLATO. L'epilogo intero nella grafia a mano non si leggeva (08/10/2026): le
+  // istruzioni («da leggere a voce alta», «annotatelo sul Frammento») stanno in un carattere leggibile, e
+  // solo la battuta fra «…» — la voce che si legge davvero — e' in corsivo calligrafico.
+  return t ? `<div class="epilogo-testo mt">${rendi(t).replace(/«([^»]*)»/g, '<span class="parlato">«$1»</span>')}</div>` : '';
 };
 
 // Il Frammento si mostra solo a serata VINTA: e' quel che si porta a casa. Una
