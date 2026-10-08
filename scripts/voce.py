@@ -15,12 +15,13 @@ Cosa si legge, nella campagna (mai le regole, mai la soluzione):
     («QUANDO RIVELATE...», «prova NERVI (Media)», «1 danno»...).
 
 Uso:
-  python scripts/voce.py "testo da leggere" -o uscita.mp3 [--effetto studio]
+  python scripts/voce.py "testo da leggere" -o uscita.mp3 [--effetto narratore]
   python scripts/voce.py --file testo.txt -o uscita.mp3
-  python scripts/voce.py --campagna [--episodi ep3,ep4] [--effetto studio]
+  python scripts/voce.py --campagna [--episodi ep3,ep4] [--effetto narratore]
   python scripts/voce.py --prova          # controlli sulla preparazione del testo
 
-Effetti (--effetto, predefinito: studio):
+Effetti (--effetto, predefinito: narratore):
+  narratore    la voce di riferimento un semitono piu' grave, nient'altro
   studio       voce calda e vicina, compressione dolce, stanza piccola in legno
   fonografo    banda stretta, saturazione, fruscio e crepitii da cilindro 1889
   sotterraneo  riverbero lungo e scuro, rombo grave di fondo
@@ -149,6 +150,8 @@ def effetto(nome, wav, mp3, durata):
     rumore = lambda colore, a: ['-f', 'lavfi', '-t', str(durata), '-i', f'anoisesrc=color={colore}:a={a}:r=24000']
     if nome == 'nessuno':
         ing, fc = [], '[0]loudnorm=I=-18'
+    elif nome == 'narratore':   # scelto a orecchio dall'autore: -1 semitono, durata invariata
+        ing, fc = [], '[0]loudnorm=I=-18,rubberband=pitch=0.94387'
     elif nome == 'studio':
         ing = ['-i', _ir('studio', 0.7, 0, 5000)]
         fc = ('[0]highpass=f=70,equalizer=f=160:t=q:w=1:g=3,equalizer=f=3500:t=q:w=1.5:g=-2,'
@@ -303,8 +306,8 @@ def main():
     a.add_argument('testo', nargs='?')
     a.add_argument('--file')
     a.add_argument('-o', '--uscita')
-    a.add_argument('--effetto', default='studio', choices=['nessuno', 'studio', 'fonografo', 'sotterraneo', 'noir'],
-                   help='trattamento audio (predefinito: studio; nessuno = solo volume uniforme)')
+    a.add_argument('--effetto', default='narratore', choices=['narratore', 'nessuno', 'studio', 'fonografo', 'sotterraneo', 'noir'],
+                   help='trattamento audio (predefinito: narratore; nessuno = solo volume uniforme)')
     a.add_argument('--voce', default=str(VOCE), help='voce di riferimento (predefinita: voci/narratore.wav)')
     a.add_argument('--pausa', type=float, default=0.0, help='secondi di riposo della GPU tra un blocco e l\'altro')
     a.add_argument('--campagna', action='store_true')
