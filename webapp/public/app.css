@@ -873,8 +873,6 @@ em, i { font-style: italic; }
 
 /* --- ritratti eroe / token nemico in Spedizione (direzione «Carte») --- */
 .giro-strip { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; }
-.giro-strip::-webkit-scrollbar { height: 6px; }
-.giro-strip::-webkit-scrollbar-thumb { background: var(--bordo-alto); border-radius: 3px; }
 .chip-turno.ritratto { display: flex; flex-direction: column; align-items: center; gap: 4px;
   min-height: 0; padding: 4px; border: 0; background: transparent; width: 66px; flex: 0 0 auto; }
 .chip-turno.ritratto .rit { width: 54px; height: 54px; border-radius: 50%; overflow: hidden;
@@ -1145,7 +1143,7 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   font: 14px 'FellSC', serif; color: var(--osso); }
 
 /* le colonne: ognuna scorre per conto suo */
-.col { min-height: 0; min-width: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; }
+.col { min-height: 0; min-width: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
 .col h3 { font: 13px 'FellSC', serif; letter-spacing: .08em; color: var(--osso-fioco); margin: 4px 4px 0; }
 .col.notte h3 { color: #e0707a; }
 
@@ -1674,7 +1672,7 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   border: 1px solid var(--bordo); background: #07080a;
   box-shadow: 0 18px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.03); }
 .str-scorre { overflow: auto; max-height: 72vh; max-height: 72dvh;
-  overscroll-behavior: contain; scrollbar-width: thin; }
+  overscroll-behavior: contain; }
 .str-mappa { position: relative; width: 100%; aspect-ratio: 1904 / 2544;
   background-size: 100% 100%; transition: width .25s ease; }
 .str-mappa > .str-arte { position: absolute; inset: 0; background: inherit; background-size: 100% 100%;
@@ -1845,3 +1843,9 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 
 /* l'esito di una prova d'insidia: si legge, non e' una nota a margine */
 .esito-ins { margin: 8px 0 0; font-size: 17px; padding: 6px 10px; border-left: 3px solid currentColor; background: rgba(0,0,0,.25); }
+
+/* LE BARRE DI SCORRIMENTO NON SI VEDONO, in tutta l'app (richiesta del 08/10/2026): si scorre lo stesso, con la
+   rotella, il trascinamento e il dito. Stanno in fondo al foglio e a specificita' minima perche' nessuna
+   regola locale (`scrollbar-width: thin`, i pezzetti `::-webkit-scrollbar-*`) le riporti in vista. */
+* { scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { display: none; width: 0; height: 0; }
