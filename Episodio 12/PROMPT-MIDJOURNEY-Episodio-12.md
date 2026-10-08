@@ -145,6 +145,11 @@ full bleed dark fantasy still life, a lockpick left conspicuously on a cloth, lo
 full bleed dark fantasy still life, an unsigned letter accusing a brother of the society, ink and slander, a seed of paranoia left under a candle, 1889 gaslamp gothic, oil painting, candlelight on paper, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Un Remo di Scorta** → `artworks/Remo di Scorta.png`
+```
+full bleed dark fantasy still life, a spare boat oar leaning against a wet quay post in thick canal fog, dripping blade, a single muffled lamp, 1889 gaslamp gothic, oil painting, one lamp on brass, brass and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — L'Archivio Violato** → `artworks/T1-ep12.png`

@@ -120,6 +120,11 @@ full bleed dark fantasy still life, a bounty notice and a pouch of old-fusion go
 full bleed dark fantasy still life, a note marking an easy way into the archive, too convenient, an ambush disguised as a gift, 1889 gaslamp gothic, oil painting, cold lamp on a folded note, sepia and grey palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Un Lasciapassare Notturno** → `artworks/Lasciapassare Notturno.png`
+```
+full bleed dark fantasy still life, a stiff night pass with a rubber stamp left on a gendarmes' desk beside a cold lamp, no legible words, 1889 gaslamp gothic, oil painting, one lamp on paper, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — L'Ingresso Sigillato** → `artworks/T1-ep19.png`

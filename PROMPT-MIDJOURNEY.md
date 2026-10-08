@@ -12,6 +12,39 @@ Ogni prompt include già `--no frame, border, card, text, letters, watermark`.
 
 ---
 
+## Come si generano le artwork (e come si scopre cosa manca)
+
+Le artwork non si generano a mano: le produce `scripts/midjourney-artwork.mjs`, che legge i prompt di
+questi `.md`, li invia a Midjourney (Chrome avviato con `--remote-debugging-port=9222`, login fatto una
+volta) e scarica le 4 varianti in `logs/candidati/<Nome>/`; si sceglie guardando i PNG, poi
+`--scegli "<Nome>" <1-4>` promuove la variante in `artworks/`. Il ciclo, i comandi, i bug noti e i
+prompt che falliscono sono scritti in testa a `scripts/midjourney-artwork.mjs`.
+
+**PRIMA DI GENERARE, VERIFICARE COSA MANCA — con tutti e due gli strumenti.** Uno solo non basta:
+
+1. `node scripts/midjourney-artwork.mjs` (senza argomenti) elenca le artwork che i **prompt** dichiarano e
+   che non sono ancora in `artworks/`. Non vede quel che serve al gioco ma non ha un prompt.
+2. `node scripts/art-mancanti-dati.mjs` guarda dai **dati** della webapp (`webapp/data/*.json`, da
+   rigenerare con `node webapp/export-data.js ; python webapp/export-data.py`): ogni `art` che non ha il
+   PNG, e ogni oggetto nascosto in una tessera (Ep.2-20) senza la carta. Se trova qualcosa che nessun
+   prompt descrive, **si aggiunge il prompt** nel file dell'episodio (sezione «Oggetti», un blocco con
+   «**Nome** → `artworks/Nome.png`» e il prompt) e si rilancia il punto 1: deve comparire in lista.
+
+Un'intestazione che cita due nomi `.png` assegna i due nomi, in ordine, ai due blocchi che seguono: una
+riga «riusa `A.png` … arte dedicata → `B.png`» fa generare A (che c'è già) al posto di B. Per un riuso
+si scrive il nome senza apici; il nome fra apici è solo quello da generare.
+
+Per ogni nuovo oggetto di tessera, la catena è: prompt → artwork → voce in `scripts/cardconjurer/cards-data.js`
+(`ref`, `fonte`, `flavor`, `effetto`; dal testo `cerca` della tessera) → carta resa → export. L'oggetto compare
+in gioco cercando nella tessera (`OGGETTI_TESSERA_N` in `src/gen_epN.py` → `ep.oggetti`, vedi
+`webapp/test-oggetti-tessera.mjs`); la carta compare solo se il suo titolo coincide col nome dell'oggetto.
+
+**Sessione del 08/10/2026:** trovati 14 oggetti di tessera senza carta (Ep.6, 9-20), il Mazzo delle Minute
+(Ep.16, carta senza prompt) e l'arte di famiglia «Il passo di cera» (Ep.5, che lo script non vedeva per
+l'intestazione a due nomi). Prompt aggiunti nei file degli episodi. Restano da generare le sei artwork
+dell'Ep.20 (T2-T6 e copertina) e armadio/toeletta; le carte Oggetto degli Ep.9-20 vanno poi costruite
+in `cards-data.js`. La Lanterna Cieca (Ep.9, 17, 18) riusa l'arte dell'Ep.4.
+
 ## I prompt per episodio stanno in file dedicati
 
 Questo file contiene solo i soggetti COMUNI a tutta la campagna (eroi,

@@ -135,6 +135,11 @@ full bleed dark fantasy still life, a typed witness deposition ready for the rec
 full bleed dark fantasy still life, a red wax seal stamped "C.B." resting on top of an ordinary man's letters and personal effects, out of place among them, nobody present, empty room, 1889 gaslamp gothic, oil painting, lamp on red wax, red and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, watermark, figures, person, people, skull, blood, dagger, weapon
 ```
 
+**Un Ritaglio del Dossier** → `artworks/Ritaglio del Dossier.png`
+```
+full bleed dark fantasy still life, a torn scrap of paper lying under the edge of a study rug, its torn edge a perfect match for a missing dossier page, no legible words, 1889 gaslamp gothic, oil painting, warm lamp on paper, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — Il Cancello** → `artworks/T1-ep15.png`

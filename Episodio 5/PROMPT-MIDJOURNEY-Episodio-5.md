@@ -16,7 +16,7 @@ full bleed dark fantasy painting, an empty flagellant habit filled with candle w
 
 ## Soggetti — Minacce (--ar 3:4, un dipinto per famiglia)
 
-**Famiglia Confratello** («Il passo di cera», «La processione», «Il capitolo si alza») → riusa `artworks/Il Confratello.png` (sopra). Arte di famiglia dedicata alle carte → `artworks/Il passo di cera.png`
+**Famiglia Confratello** («Il passo di cera», «La processione», «Il capitolo si alza») → la creatura riusa Il Confratello (sopra); l'arte di famiglia dedicata alle carte è questa → `artworks/Il passo di cera.png`
 ```
 full bleed dark fantasy painting, three hooded wax-and-bone figures in black habits walking in single file procession through a buried chapel nave, each carrying a lit black candle, wax dripping in their footprints, 1889 gaslamp gothic, oil painting, candlelight, muted sepia palette with faint teal accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```

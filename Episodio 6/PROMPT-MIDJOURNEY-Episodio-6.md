@@ -85,6 +85,11 @@ full bleed dark fantasy still life, an ornate silver reliquary of a saint holdin
 full bleed dark fantasy still life, a bell-keeper's lead and leather mallet for working on bells without ringing them, lying on construction crates beside a great silent bronze bell, 1889 gaslamp gothic, oil painting, lantern light, deep teal and gold palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
+**Il Contratto del Corista** → `artworks/Contratto del Corista.png`
+```
+full bleed dark fantasy still life, a crumpled employment contract signed with a single ink cross, found in the pocket of a forgotten dark cloak on an antechamber bench, hired hands not believers, no legible words, 1889 gaslamp gothic, oil painting, candlelight, warm sepia palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
 ## Tessere (--ar 1:1, prompt completi pronti al copia-incolla)
 
 **T1 — La Porta d'Acqua** → `artworks/T1-ep6.png`

@@ -135,6 +135,11 @@ full bleed dark fantasy still life, a rusted mason's trowel lying on a lime-dust
 full bleed dark fantasy still life, a single polished gold wedding ring displayed upright on a dresser cloth, a dead woman's ring kept as a trophy, cold and wrong, 1889 gaslamp gothic, oil painting, warm lamp on cold gold, gold and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Una Lanterna a Olio** → `artworks/Lanterna a Olio.png`
+```
+full bleed dark fantasy still life, an old oil lantern still full of oil with a small steady flame, left on a table in a half-open mourners' room, sooty glass, 1889 gaslamp gothic, oil painting, one studio lamp, brass and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — L'Ingresso (il tinello)** → `artworks/T1-ep10.png`

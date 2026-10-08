@@ -140,6 +140,8 @@ full bleed dark fantasy still life, a planted letter accusing an innocent brothe
 full bleed dark fantasy still life, a prisoner's last note, "watch the pens, not the hands", a rival's dying gift, 1889 gaslamp gothic, oil painting, one lamp on a small folded note, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Una Lanterna Cieca** (oggetto nascosto in tessera) → riusa `artworks/Lanterna Cieca.png` (Ep.4): niente da generare, serve solo la carta.
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — Il Cancello di Campagna** → `artworks/T1-ep17.png`

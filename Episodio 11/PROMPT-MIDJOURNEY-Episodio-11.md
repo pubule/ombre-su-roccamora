@@ -155,6 +155,11 @@ full bleed dark fantasy still life, an official inspector's identity card, impos
 full bleed dark fantasy still life, a dead man's scattered notes that seem to accuse him as the mastermind, ink and doubt, the papers of a victim mistaken for a culprit, 1889 gaslamp gothic, oil painting, cold lamp on paper, grey and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Una Corda di Servizio** → `artworks/Corda di Servizio.png`
+```
+full bleed dark fantasy still life, a bellringer's service rope neatly coiled and still sound, hung in a stone alcove of a bell loggia, worn grip knots, a bronze bell in shadow above, 1889 gaslamp gothic, oil painting, one lantern on coiled hemp, hemp brown and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — L'Abbaino** → `artworks/T1-ep11.png`

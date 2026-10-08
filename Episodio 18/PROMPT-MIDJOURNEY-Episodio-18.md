@@ -155,6 +155,8 @@ full bleed dark fantasy still life, a ready-made dossier of fabricated evidence 
 full bleed dark fantasy still life, a portrait of an imaginary rival on an easel, in truth just another of one man's masks, 1889 gaslamp gothic, oil painting, one lamp on a framed face, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Una Lanterna Cieca** (oggetto nascosto in tessera) → riusa `artworks/Lanterna Cieca.png` (Ep.4): niente da generare, serve solo la carta.
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — La Sala dell'Assemblea** → `artworks/T1-ep18.png`

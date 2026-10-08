@@ -160,6 +160,11 @@ full bleed dark fantasy still life, a letter of recommendation on fine paper, co
 full bleed dark fantasy still life, a notary's office rubber stamp and inkpad on a spotless desk, routine and clean, proof of nothing, 1889 gaslamp gothic, oil painting, cold lamp on brass and wood, sepia and grey palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Un Secchio d’Acqua e Sabbia** → `artworks/Secchio d’Acqua e Sabbia.png`
+```
+full bleed dark fantasy still life, a pair of fire buckets, one of water and one of sand, on the floor of a paper-mill storeroom beside old millstones, dusty and ready, 1889 gaslamp gothic, oil painting, one lamp on dull tin, grey-tin and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — Il Cortile del Molino** → `artworks/T1-ep13.png`

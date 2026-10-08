@@ -125,6 +125,11 @@ full bleed dark fantasy still life, a ritual key that seems to open the god's ch
 full bleed dark fantasy still life, a grimoire of the Fourth Movement open on the score of waking, fascinating and deadly, the wrong song, 1889 gaslamp gothic, oil painting, cold lamp on an old score, sepia and teal palette with a red ribbon --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Un Frammento di Eco Pulito** → `artworks/Frammento di Eco Pulito.png`
+```
+full bleed dark fantasy still life, a clear glass-like shard of crystallised echo resting on a bare living stone, faint concentric ripples around it, utterly clean, 1889 gaslamp gothic, oil painting, one lamp on assembled papers, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — La Discesa (la cripta)** → `artworks/T1-ep20.png`

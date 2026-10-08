@@ -145,6 +145,13 @@ full bleed dark fantasy still life, a gendarmerie identity card in a worn leathe
 full bleed dark fantasy still life, a journalist's hastily written letter on a newsroom desk beside a cold inkwell and proof sheets, press not authority, 1889 gaslamp gothic, oil painting, lamplight, sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Una Pertica da Tintore** → `artworks/Pertica da Tintore.png`
+```
+full bleed dark fantasy still life, a long dyer's pole stained indigo and madder leaning against a steaming dye vat in a back alley, an improvised weapon with a hairline crack near the middle, 1889 gaslamp gothic, oil painting, green desk lamp, parchment and wax red palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
+**Una Lanterna Cieca** (oggetto nascosto in tessera) → riusa `artworks/Lanterna Cieca.png` (Ep.4): niente da generare, serve solo la carta.
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — La Sacrestia (uscita di servizio)** → `artworks/T1-ep9.png`

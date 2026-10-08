@@ -145,6 +145,11 @@ full bleed dark fantasy still life, a pawn ticket and a single phonograph cylind
 full bleed dark fantasy still life, a venomous letter threatening to "unmask" a rival, academic spite on plain paper, motive without means, 1889 gaslamp gothic, oil painting, cold lamp on paper, sepia and grey palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
 ```
 
+**Una Fune Leggera** → `artworks/Fune Leggera.png`
+```
+full bleed dark fantasy still life, a light rope coil forgotten among washing hung on a rooftop terrace, drying cloths and chimney pots in the dusk, 1889 gaslamp gothic, oil painting, moonlight and one ember glow, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, lantern, lamp
+```
+
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — La Gronda** → `artworks/T1-ep14.png`
