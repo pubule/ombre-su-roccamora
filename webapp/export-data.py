@@ -1941,6 +1941,30 @@ for _k, _f in _MOD_EP.items():
     if _fr:
         episodi[_k]['frammento'] = _fr
 
+# GLI OGGETTI NASCOSTI NELLE TESSERE (Ep.2-20). Il retro di una tessera porta una carta Oggetto
+# (OGGETTI_TESSERA_N nei gen_epN.py) e il testo «cerca» lo dice, ma nel digitale la ricerca registra
+# l'oggetto solo se l'episodio ha `oggetti` con `ref` = tessera: solo l'Ep.1 li aveva. Negli altri
+# cercare in T2 dava la riga di testo, niente nell'inventario e niente carta (visto al tavolo,
+# 08/10/2026, il Badile del Formatore). Il nome e' quello della carta (la proiezione mostra ai telefoni
+# solo le carte in mano, per nome); quel che segue il «—» o la parentesi e' una nota d'autore.
+def _oggetti_tessera(k):
+    m = re.match(r'ep(\d+)$', k)
+    if not m:
+        return []
+    mod = sys.modules.get(f'gen_ep{m.group(1)}')
+    mappa = getattr(mod, f'OGGETTI_TESSERA_{m.group(1)}', None) or {}
+    out = []
+    for ref, nomi in mappa.items():
+        for n in nomi:
+            nome = re.split(r'\s+—\s+|\s+\(', n)[0].strip()
+            out.append(dict(nome=nome, ref=ref, fonte=f'Tessera {ref}', flavor=None, effetto=None,
+                            rischio='rischios' in n.lower()))
+    return out
+
+
+for k, ep in episodi.items():
+    if not ep.get('oggetti'):
+        ep['oggetti'] = _oggetti_tessera(k)
 dump('comune.json', comune)
 for k, ep in episodi.items():
     dump(f'{k}.json', ep)
