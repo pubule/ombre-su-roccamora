@@ -69,3 +69,6 @@ prova-moduli/
 # webapp/vtt/, la libreria non entra in git. Li rigenera
 # `python scripts/importa-fa-lanterne.py` (legge risorse-vtt/ e webapp/vtt/).
 webapp/public/mockups/tessere-alt/fa/
+
+# voce del narratore (scripts/voce.py): e' una voce vera, e gli audio generati si rifanno a comando
+voci/

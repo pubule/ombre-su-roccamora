@@ -1,5 +1,14 @@
 # Handoff — dove siamo
 
+## VOCE DEL NARRATORE (08/10/2026): `scripts/voce.py`, audio di tutta la campagna in corso
+
+TTS in locale (Chatterbox Multilingual, RTX 3070 Ti) che clona `voci/narratore.wav` (voce fornita dall'autore; `voci/` e' in .gitignore, audio compresi).
+- Comando: `python scripts/voce.py "testo" -o x.mp3 [--effetto studio|fonografo|sotterraneo|noir|nessuno]`, `--campagna [--episodi ep3]`, `--prova`. Primo avvio crea il venv in `%LOCALAPPDATA%\osr-voce` (~4 GB).
+- Si legge: lettera (senza il corsivo lungo «Luoghi disponibili...»), testo dei luoghi intero, tessere fino alla prima frase di regola (regex `REGOLA`). `--prova` lo verifica su tutti gli episodi (sabotaggio della regex rilevato).
+- Difetti di Chatterbox gestiti: cifre lette male (si scrivono in lettere), parole inventate sui blocchi corti (blocchi 120-250 caratteri), sillabe spurie in coda (riascolto con Whisper, coda tagliata, fino a 3 rigenerazioni sotto l'85%).
+- Uscita: `voci/generati/<ep>/lettera.mp3`, `luogo-NN.mp3`, `T1.mp3`...; `indice.json` con la somiglianza di ogni file; il log finale elenca i file da riascoltare. La campagna riprende saltando i .mp3 gia' fatti.
+- Generazione completa (331 testi, ~5 ore di audio) lanciata in modalita' studio; senza pause stimata sotto le 13 ore. L'app NON riproduce ancora questi audio: integrazione da progettare.
+
 ## EFFETTI DELLE DOMANDE resi giocabili (06/10/2026): lucchetto Ep.1, casse Ep.5
 
 Prima erano solo promemoria per chi arbitra. Ora il motore li esegue (test: `test-lucchetto.mjs`, `test-casse.mjs`, e le UI `test-lucchetto-ui.mjs`, `test-casse-ui.mjs`).
