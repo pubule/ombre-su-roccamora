@@ -3317,8 +3317,8 @@ una cosa falsa.
    (`generate-tiles.js ep16|ep20`), fogli di stampa con `--solo-mancanti`,
    `python webapp/export-assets.py`. Nessun deploy.
 5. **Arredo `armadio`/`toeletta`**: chiavi gia' in `ARREDO_KEYS` e nel prompt
-   condiviso, arte non generata — senza, le tessere di Ep.16 (quando arriverà
-   la loro arte) avranno un'icona mancante su quei due arredi.
+   condiviso, arte generata il 09/10/2026: manca solo rigenerare le tessere
+   di Ep.16 (`node scripts/tiles/generate-tiles.js ep16`).
 6. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
    altro dispositivo**.
 7. **I nove oggetti personali degli eroi** (la lente di Elena, i sali di Marn,
