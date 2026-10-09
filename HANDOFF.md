@@ -3304,9 +3304,25 @@ una cosa falsa.
    `node scripts/tiles/generate-tiles.js epN` (serve prima aggiungere
    `TILES_EP<N>` in `scripts/tiles/generate-tiles.js`, stesso schema di
    Ep.10-15 se la disposizione e' una catena lineare T1..T6).
-4. **Generazione Midjourney**: riprende da sola il 09/09/2026 (Fast Hours) con
-   `node scripts/midjourney-artwork.mjs --vai --limite 6`, poi si scelgono le
-   varianti a occhio con `--scegli`. 388 artwork ancora mancanti.
+4. **Generazione Midjourney** (aggiornato 09/10/2026): mancano **21** artwork,
+   non piu' 388. Le Fast Hours si rinnovano il 9 del mese alle **15:40**
+   (prima di quell'ora il submit non da' `job_id`). **Un job alla volta**
+   (4 varianti), scelta a occhio, poi il successivo:
+   `node scripts/midjourney-artwork.mjs --vai --filtro "<nome>" --limite 1`,
+   poi `--scegli "<nome>" <n>`. Chrome con CDP: vedi testa dello script.
+   Ordine deciso dall'autore — prima le carte oggetto, poi episodi crescenti:
+   1. Oggetti: Contratto del Corista (Ep.6), Pertica da Tintore (9), Lanterna
+      a Olio (10), Corda di Servizio (11), Remo di Scorta (12), Secchio
+      d'Acqua e Sabbia (13), Fune Leggera (14), Ritaglio del Dossier (15),
+      Bottiglia delle Nozze e Mazzo delle Minute (16), Lasciapassare Notturno
+      (19), Frammento di Eco Pulito (20).
+   2. Il passo di cera (Ep.5, arte di famiglia di 5 minacce Ep.5-6).
+   3. armadio, toeletta (arredi delle tessere Ep.16).
+   4. Ep.20: T2-T6 e copertina.
+   Controllo incrociato: `node scripts/art-mancanti-dati.mjs` (guarda i dati,
+   non i prompt). I 46 «orfani» dell'Ep.1 sono prompt senza nome file: i dati
+   non chiedono altro, non vanno generati. Dopo l'arte: carte Oggetto Ep.9-20
+   in `cards-data.js` (vedi `PROMPT-MIDJOURNEY.md`, sessione 08/10).
 5. **Arredo `armadio`/`toeletta`**: chiavi gia' in `ARREDO_KEYS` e nel prompt
    condiviso, arte non generata — senza, le tessere di Ep.16 (quando arriverà
    la loro arte) avranno un'icona mancante su quei due arredi.
