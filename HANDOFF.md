@@ -3312,13 +3312,20 @@ una cosa falsa.
    armadio/toeletta sono dipinti con cornice come stufa/scrivania, non glifi
    piatti (MJ ignora il "flat glyph"); T6-ep20 ha la figura sola sul bordo
    che il prompt chiede (in contraddizione col suo `--no figures`).
-   **Resta a valle, non fatto**: le 14 carte Oggetto Ep.6-20 in
-   `scripts/cardconjurer/cards-data.js`, poi carte, tessere Ep.16/20
-   (`generate-tiles.js ep16|ep20`), fogli di stampa con `--solo-mancanti`,
-   `python webapp/export-assets.py`. Nessun deploy.
+   **Carte fatte** (09/10): 14 carte Oggetto di tessera in `cards-data.js`
+   (effetto e flavor dal testo `cerca` della tessera) + le 5 minacce del passo
+   di cera, `export-data` ed `export-assets` rigenerati; `art-mancanti-dati`
+   dice 0/0. **Un Remo di Scorta (Ep.12 T4) non ha effetto**: la tessera ha
+   `cerca: null`, la carta dice «nessuno finora scoperto» — da decidere.
+   **Le tessere `Episodio N/board/` non si rigenerano**: in app la plancia si
+   costruisce con Forgotten Adventures, l'arte MJ T*-epN serve solo alla pagina
+   di descrizione della tessera prima di entrare. Nota: `html()` di
+   `generate-tiles.js` chiama `groupArredi`/`pickDoorIndex` senza `L` (NaN:
+   niente arredi, porta sulla casella 0) — le board di Ep.7-9 e 16-20 sono
+   uscite cosi'. Non corretto perche' il percorso non e' piu' in uso.
 5. **Arredo `armadio`/`toeletta`**: chiavi gia' in `ARREDO_KEYS` e nel prompt
-   condiviso, arte generata il 09/10/2026: manca solo rigenerare le tessere
-   di Ep.16 (`node scripts/tiles/generate-tiles.js ep16`).
+   condiviso, arte generata il 09/10/2026 (serve solo alle board stampabili,
+   non alla plancia dell'app).
 6. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
    altro dispositivo**.
 7. **I nove oggetti personali degli eroi** (la lente di Elena, i sali di Marn,
