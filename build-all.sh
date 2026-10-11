@@ -24,11 +24,14 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 FLAG=""
 [ "$1" = "--solo-mancanti" ] && FLAG="--solo-mancanti"
 
-# Tutti e 20 gli episodi: quelli senza dati scritti a mano nello script leggono
-# le tessere da webapp/data/ep<N>.json, e chi non ha ancora lo sfondo d'arte
-# salta la sua tessera dicendolo (non ne produce una vuota).
+# Le tessere stampate sono le stanze della plancia dell'app (Forgotten
+# Adventures, scripts/tiles/stampa-fa.mjs): servono il server locale e i dati
+# esportati. L'arte Midjourney T*-epN resta alla descrizione e ai fascicoli.
 echo "== Tessere (Episodio N/board/) =="
-for n in $(seq 1 20); do node scripts/tiles/generate-tiles.js "ep$n" $FLAG; done
+node webapp/server.js 8017 >/dev/null 2>&1 & SERVER=$!
+trap 'kill $SERVER 2>/dev/null' EXIT
+for i in $(seq 1 30); do curl -s -o /dev/null http://localhost:8017/ && break; sleep 1; done
+node scripts/tiles/stampa-fa.mjs
 
 echo "== Carte (cards/) =="
 # generate-batch.js risolve card.art (es. 'artworks/Elena.png') relativo alla

@@ -3317,20 +3317,21 @@ una cosa falsa.
    di cera, `export-data` ed `export-assets` rigenerati; `art-mancanti-dati`
    dice 0/0. **Un Remo di Scorta (Ep.12 T4) non ha effetto**: la tessera ha
    `cerca: null`, la carta dice «nessuno finora scoperto» — da decidere.
-   **Le tessere `Episodio N/board/` non si rigenerano**: in app la plancia si
-   costruisce con Forgotten Adventures, l'arte MJ T*-epN serve solo alla pagina
-   di descrizione della tessera prima di entrare. Nota: `html()` di
-   `generate-tiles.js` chiama `groupArredi`/`pickDoorIndex` senza `L` (NaN:
-   niente arredi, porta sulla casella 0) — le board di Ep.7-9 e 16-20 sono
-   uscite cosi'. Non corretto perche' il percorso non e' piu' in uso.
+   **Le tessere stampate sono la plancia dell'app** (11/10): nuovo
+   `scripts/tiles/stampa-fa.mjs` compone ogni stanza con la stessa
+   `stanzaHtml()` e gli stessi pezzi Forgotten Adventures dell'app (scenografia
+   compresa), senza buio ne' eroi, a 616 px/casella (50 mm, 2464 px), piu'
+   reticolo, «verso Tn» e «ingresso». Serve `node webapp/server.js` (8017).
+   Rigenerate tutte le 127 tessere di Ep.1-20 in `Episodio N/board/`, stessi
+   nomi file; `build-all.sh` ora usa questo e non `generate-tiles.js`
+   (prospettiva MJ, superato). L'arte MJ T*-epN serve solo alla pagina di
+   descrizione della tessera e ai fascicoli.
    **Deploy 11/10/2026** (versione `d26a6e55`), da export pulito di
    `origin/main`: arte, carte e dati nuovi online. PDF Ep.5-6, 9-20 e copertina
-   Ep.20 rigenerati e committati. **Aperto**: le board stampabili (`Episodio
-   N/board/`, che i fascicoli citano per il tavolo) di Ep.7-9 e 16-20 sono
-   senza arredi, ed Ep.20 T2-T6 non esistono: decidere se servono ancora.
+   Ep.20 rigenerati e committati.
 5. **Arredo `armadio`/`toeletta`**: chiavi gia' in `ARREDO_KEYS` e nel prompt
-   condiviso, arte generata il 09/10/2026 (serve solo alle board stampabili,
-   non alla plancia dell'app).
+   condiviso, arte generata il 09/10/2026. Serve solo al vecchio
+   `generate-tiles.js`: le tessere stampate ora usano gli arredi FA.
 6. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
    altro dispositivo**.
 7. **I nove oggetti personali degli eroi** (la lente di Elena, i sali di Marn,
