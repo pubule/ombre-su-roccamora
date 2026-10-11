@@ -1054,13 +1054,15 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
    stato normale della Spedizione: un segnale sempre acceso non segnala niente,
    e l'oro fuori dalla mappa e' proprio la cosa che test-stile vieta. */
 
+/* minmax(0, 1fr): un 1fr non scende sotto il contenuto, e una plancia zoomata
+   allargava la colonna oltre lo schermo (visto alzando lo zoom d'ingresso). */
 /* In orizzontale la plancia non riempie la larghezza (il sotterraneo e' piu'
    alto che largo e resta centrato): i pannelli superstiti vanno a occupare
    proprio le fasce che altrimenti restano vuote. In verticale il media query
    non scatta, `.lato` torna `display: contents` e vale la colonna singola. */
 @media (orientation: landscape) and (min-width: 900px) {
   #app.immersivo { display: grid; gap: 10px;
-    grid-template-columns: 1fr minmax(280px, 24%); grid-template-rows: auto 1fr; }
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 24%); grid-template-rows: auto 1fr; }
   .immersivo .barra { grid-column: 1 / -1; }
   .immersivo .board-area { grid-column: 1; grid-row: 2; min-height: 0; }
   .immersivo .lato { display: flex; flex-direction: column; gap: 10px;
@@ -1110,7 +1112,7 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
    intatta. Senza questo aggancio le due schermate avrebbero dovuto dividersi
    una classe sola, e una sarebbe finita rotta dall'altra. */
 #app.immersivo:has(#col-eroi) {
-  display: grid; grid-template-columns: 320px 1fr 310px; grid-template-rows: auto 1fr;
+  display: grid; grid-template-columns: 320px minmax(0, 1fr) 310px; grid-template-rows: auto 1fr;
   gap: 8px; padding: 8px; overflow: hidden;
 }
 #app.immersivo:has(#col-eroi) .fascia-turno,

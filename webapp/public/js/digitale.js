@@ -1793,7 +1793,14 @@ function fitZoom() {
   // guardia: senza misure meglio lo zoom corrente che un NaN, che JSON.stringify
   // salverebbe come null e riaprirebbe la partita senza zoom
   if (!g || !wrap || !g.w || !g.h || !wrap.clientWidth || !wrap.clientHeight) return SP().zoom || 1;
-  return Math.min(MAX_FIT, clampZoom(Math.min((wrap.clientWidth - 4) / g.w, (wrap.clientHeight - 4) / g.h)));
+  // si adatta alle stanze RIVELATE, non a tutto il piano: il piano copre l'intero episodio
+  // e sul PC l'ingresso si apriva allo zoom minimo, una stanza grande come un francobollo
+  const lay = layout(); const pos = (SP().rivelate || []).map((t) => lay[t]).filter(Boolean);
+  // + mezza tessera di margine: la vista si centra sull'eroe di turno, non sulla stanza, e senza
+  // margine un eroe in un angolo spingeva meta' stanza fuori dallo schermo
+  const lato = (v) => (Math.max(...v) - Math.min(...v) + 1.5) * 4 * g.cell;
+  const w = pos.length ? lato(pos.map((p) => p[0])) : g.w, h = pos.length ? lato(pos.map((p) => p[1])) : g.h;
+  return Math.min(MAX_FIT, clampZoom(Math.min((wrap.clientWidth - 4) / w, (wrap.clientHeight - 4) / h)));
 }
 
 // IL FUORI OLTRE LA PLANCIA. Quando la finestra ha proporzioni diverse dalle stanze, attorno alla
