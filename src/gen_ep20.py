@@ -385,10 +385,12 @@ TILES_20 = [
     dict(id='T5', nome='LA SOGLIA DELLA CAMERA', exits={'S': 'T4', 'N': 'T6'},
          pavimento='roccia',   # «la roccia e' nuda» (Task 9): il nome non basta
          testo='La soglia della camera del Dormiente: qui il coro fa l’ultima resistenza, e la '
-               'signora Vetri è vicina. QUANDO RIVELATE QUESTA TESSERA: se non l’avete già salvata, è '
-               'ora — oltre questa soglia, M. la costringerà a cantare.',
-         arbitro='Ultimo muro del coro. Se la Candidata non è salvata, M. la costringe (il '
-                 'risveglio accelera). Salvatela qui, o subite la sua voce nella camera. Oltre, '
+               'signora Vetri è vicina. QUANDO RIVELATE QUESTA TESSERA: se sapete chi è la voce che '
+               'M. cerca, qui gliela sottraete; se non lo sapete, oltre questa soglia la costringerà '
+               'a cantare.',
+         arbitro='Ultimo muro del coro. Con la Candidata Salvata (dall’Indagine: i Vecchi del Coro, '
+                 'la D3) la sottraete a M. qui. Senza, M. la costringe a cantare e il risveglio '
+                 'accelera (+1 Canto/round nella camera): in Spedizione non si recupera. Oltre, '
                  'la fase finale.',
          cerca_vuoto='Sulla soglia la pietra è liscia come se fosse stata calpestata '
                      'per secoli. Nessuna nicchia, nessun arredo: da qui in avanti la '
