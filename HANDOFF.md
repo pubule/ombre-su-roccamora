@@ -3323,6 +3323,11 @@ una cosa falsa.
    `generate-tiles.js` chiama `groupArredi`/`pickDoorIndex` senza `L` (NaN:
    niente arredi, porta sulla casella 0) — le board di Ep.7-9 e 16-20 sono
    uscite cosi'. Non corretto perche' il percorso non e' piu' in uso.
+   **Deploy 11/10/2026** (versione `d26a6e55`), da export pulito di
+   `origin/main`: arte, carte e dati nuovi online. PDF Ep.5-6, 9-20 e copertina
+   Ep.20 rigenerati e committati. **Aperto**: le board stampabili (`Episodio
+   N/board/`, che i fascicoli citano per il tavolo) di Ep.7-9 e 16-20 sono
+   senza arredi, ed Ep.20 T2-T6 non esistono: decidere se servono ancora.
 5. **Arredo `armadio`/`toeletta`**: chiavi gia' in `ARREDO_KEYS` e nel prompt
    condiviso, arte generata il 09/10/2026 (serve solo alle board stampabili,
    non alla plancia dell'app).
